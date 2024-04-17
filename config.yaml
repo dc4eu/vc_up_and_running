@@ -1,0 +1,82 @@
+---
+common:
+  mongo:
+    uri: mongodb://mongo:27017
+  production: false
+  basic_auth:
+    ladok: xyz
+  tracing:
+    addr: jaeger:4318
+    type: jaeger
+  queues:
+    simple_queue:
+      eduseal_sign:
+        name: eduseal_sign
+      eduseal_add_signed:
+        name: eduseal_add_signed
+      eduseal_del_signed:
+        name: eduseal_del_signed
+      eduseal_validate:
+        name: eduseal_validate
+      eduseal_persistent_save:
+        name: eduseal_persistent_save
+      vc_persistent_save:
+        name: vc_persistent_save
+      vc_persistent_get:
+        name: vc_persistent_get
+      vc_persistent_delete:
+        name: vc_persistent_delete
+      vc_persistent_replace:
+        name: vc_persistent_replace
+  key_value:
+    db: 3
+    addr: redis:6379
+    password: test-password
+  qr:
+    base_url: "https://deutsche-rentenversicherung.de"
+    recovery_level: 2
+    size: 256
+
+issuer:
+  api_server:
+    addr: :8080
+  rpc_server:
+    addr: :8090
+  http_proxy:
+  log:
+    level:
+  datastore:
+    addr: datastore:8080
+  
+datastore:
+  api_server:
+    addr: :8080
+  rpc_server: 
+    addr: datastore:8090
+  
+verifier:
+  api_server:
+    addr: :8080
+  rpc_server:
+    addr: verifier:8090
+
+registry:
+  api_server:
+    addr: :8080
+  smt:
+    update_periodicity: 5
+    init_leaf: 575cea4a-5725-11ee-8287-2b486b7ace28
+  rpc_server:
+    addr: registry:8090
+
+cache:
+  api_server:
+    addr: :8080
+
+persistent:
+  api_server:
+    addr: :8080
+
+apigw:
+  api_server:
+    addr: :8080

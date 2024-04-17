@@ -1,0 +1,130 @@
+---
+version: "3"
+
+services:
+  apigw:
+    container_name: "vc_apigw"
+    image: "docker.sunet.se/dc4eu/apigw:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+      - /var/log/sunet:/var/log/sunet
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.2
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  verifier:
+    container_name: "vc_verifier"
+    image: "docker.sunet.se/dc4eu/verifier:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.3
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  registry:
+    container_name: "vc_registry"
+    image: "docker.sunet.se/dc4eu/registry:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.4
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  cache:
+    container_name: "vc_cache"
+    image: "docker.sunet.se/dc4eu/cache:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    depends_on:
+      - redis
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.5
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  persistent:
+    container_name: "vc_persistent"
+    image: "docker.sunet.se/dc4eu/persistent:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.6
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  redis:
+    image: redis:alpine
+    container_name: "vc_redis"
+    restart: always
+    expose:
+      - 6373
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.9
+
+  mongo:
+    image: mongo:4.0.10
+    container_name: "vc_mongo"
+    restart: always
+    expose:
+      - 27017
+    volumes:
+      - mongo_data:/data
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.10
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: vc_jaeger
+    restart: always
+    expose:
+      - 16686
+      - 4317
+      - 4318
+    networks:
+      vc-net:
+        ipv4_address: 172.16.100.11
+    environment:
+      - "COLLECTOR_OTLP_ENABLED=true"
+
+networks:
+  vc-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-vc
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.100.0/24
+volumes:
+  redis_data:
+  mongo_data:

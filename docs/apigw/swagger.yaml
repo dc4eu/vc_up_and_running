@@ -1,0 +1,886 @@
+basePath: /api/v1
+definitions:
+  apiv1.DeleteDocumentRequest:
+    properties:
+      authentic_source:
+        description: |-
+          required: true
+          example: skatteverket
+        type: string
+      document_id:
+        description: |-
+          required: true
+          example: 5e7a981c-c03f-11ee-b116-9b12c59362b9
+        type: string
+    type: object
+  apiv1.GetDocumentCollectIDReply:
+    properties:
+      data:
+        $ref: '#/definitions/model.Upload'
+    type: object
+  apiv1.GetDocumentCollectIDRequest:
+    properties:
+      authentic_source:
+        type: string
+      collect_id:
+        type: string
+      document_type:
+        type: string
+      identity:
+        $ref: '#/definitions/model.Identity'
+    required:
+    - authentic_source
+    - collect_id
+    - document_type
+    - identity
+    type: object
+  apiv1.GetDocumentReply:
+    properties:
+      data:
+        properties:
+          document_data: {}
+          meta:
+            $ref: '#/definitions/model.MetaData'
+        type: object
+    type: object
+  apiv1.GetDocumentRequest:
+    properties:
+      authentic_source:
+        type: string
+      document_id:
+        type: string
+      document_type:
+        type: string
+    required:
+    - authentic_source
+    - document_id
+    - document_type
+    type: object
+  apiv1.IDMappingReply:
+    properties:
+      data:
+        properties:
+          authentic_source_person_id:
+            type: string
+        type: object
+    type: object
+  apiv1.NotificationReply:
+    properties:
+      data:
+        $ref: '#/definitions/model.QR'
+    type: object
+  apiv1.NotificationRequest:
+    properties:
+      authentic_source:
+        type: string
+      document_id:
+        type: string
+      document_type:
+        type: string
+    type: object
+  apiv1.PDFGetSignedReply:
+    properties:
+      data:
+        properties:
+          document:
+            $ref: '#/definitions/types.Document'
+          message:
+            type: string
+        type: object
+    type: object
+  apiv1.PDFRevokeReply:
+    properties:
+      data:
+        properties:
+          status:
+            type: boolean
+        type: object
+    type: object
+  apiv1.PDFSignReply:
+    properties:
+      data:
+        properties:
+          transaction_id:
+            type: string
+        required:
+        - transaction_id
+        type: object
+    type: object
+  apiv1.PDFSignRequest:
+    properties:
+      pdf:
+        type: string
+    required:
+    - pdf
+    type: object
+  apiv1.PDFValidateReply:
+    properties:
+      data:
+        $ref: '#/definitions/types.Validation'
+    type: object
+  apiv1.PDFValidateRequest:
+    properties:
+      pdf:
+        type: string
+    type: object
+  apiv1.PortalReply:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.Upload'
+        type: array
+    type: object
+  apiv1.PortalRequest:
+    properties:
+      authentic_source:
+        type: string
+      authentic_source_person_id:
+        type: string
+      document_type:
+        type: string
+      valid_from:
+        type: integer
+      valid_to:
+        type: integer
+    required:
+    - authentic_source
+    - authentic_source_person_id
+    type: object
+  apiv1.RevokeDocumentRequest:
+    properties:
+      authentic_source:
+        type: string
+      document_type:
+        type: string
+      revocation:
+        $ref: '#/definitions/model.Revocation'
+    required:
+    - authentic_source
+    - document_type
+    - revocation
+    type: object
+  apiv1.RevokeReply:
+    properties:
+      data:
+        properties:
+          status:
+            type: boolean
+        type: object
+    type: object
+  apiv1.RevokeRequest:
+    properties:
+      authentic_source:
+        type: string
+      document_id:
+        type: string
+      document_type:
+        type: string
+      revocation_id:
+        type: string
+    type: object
+  apiv1.UploadRequest:
+    properties:
+      attestation:
+        $ref: '#/definitions/model.Attestation'
+      document_data:
+        additionalProperties: {}
+        type: object
+      identity:
+        $ref: '#/definitions/model.Identity'
+      meta:
+        $ref: '#/definitions/model.MetaData'
+    required:
+    - attestation
+    - document_data
+    - identity
+    - meta
+    type: object
+  helpers.Error:
+    properties:
+      details: {}
+      title:
+        type: string
+    type: object
+  helpers.ErrorResponse:
+    properties:
+      error:
+        $ref: '#/definitions/helpers.Error'
+    type: object
+  model.Attestation:
+    properties:
+      description_long:
+        description: |-
+          TODO(masv): change TextLong to DescriptionLong
+          required: true
+          example: European Health Insurance Card
+        type: string
+      description_short:
+        description: |-
+          TODO(masv): ShortText to DescriptionShort, more descriptive, pun intended
+          required: true
+          example: EHIC
+        type: string
+      description_structured:
+        additionalProperties: {}
+        description: |-
+          DescriptionStructured is a map of structured descriptions
+          required: true
+          example: {"en": "European Health Insurance Card", "sv": "Europeiskt sjukförsäkringskortet"}
+        type: object
+      type:
+        description: |-
+          required: true
+          example: secure
+        type: string
+      version:
+        description: |-
+          TODO(masv): change AttestationDataVersion to AttestationVersion, data seems redundant
+          required: true
+          example: "1.0.0"
+        type: string
+    required:
+    - description_long
+    - description_short
+    - description_structured
+    - type
+    - version
+    type: object
+  model.Identity:
+    properties:
+      birth_city:
+        description: |-
+          required: false
+          example: Stockholm
+        type: string
+      birth_country:
+        description: |-
+          TODO(masv): full name or just country code?
+          required: false
+          example: sweden
+        type: string
+      birth_date:
+        description: |-
+          required: true
+          example: 1970-01-01
+        type: string
+      birth_place:
+        description: |-
+          required: false
+          example: Stockholm
+        type: string
+      birth_state:
+        description: |-
+          required: false
+          example: Stockholm
+        type: string
+      family_name:
+        description: |-
+          required: true
+          example: Svensson
+        type: string
+      family_name_at_birth:
+        description: |-
+          required: false
+          example: Karlsson
+        type: string
+      gender:
+        description: |-
+          required: false
+          example: male
+        type: string
+      given_name:
+        description: |-
+          required: true
+          example: Magnus
+        type: string
+      given_name_at_birth:
+        description: |-
+          required: false
+          example: Magnus
+        type: string
+      nationality:
+        description: |-
+          required: false
+          example: swedish
+        type: string
+      resident_address:
+        description: |-
+          required: false
+          example: 221b baker street
+        type: string
+      resident_city:
+        description: |-
+          required: false
+          example: london
+        type: string
+      resident_country:
+        description: |-
+          required: false
+          example: england
+        type: string
+      resident_house_number:
+        description: |-
+          required: false
+          example: 221b
+        type: string
+      resident_postal_code:
+        description: |-
+          required: false
+          example: W1U 6SG
+        type: string
+      resident_state:
+        description: |-
+          required: false
+          example: england
+        type: string
+      resident_street:
+        description: |-
+          required: false
+          example: baker street
+        type: string
+      version:
+        description: |-
+          required: true
+          example: "1.0.0"
+        type: string
+    required:
+    - birth_date
+    - family_name
+    - given_name
+    - version
+    type: object
+  model.MetaData:
+    properties:
+      authentic_source:
+        description: |-
+          required: true
+          example: SUNET
+        type: string
+      authentic_source_person_id:
+        description: |-
+          required: true
+          example: 65636cbc-c03f-11ee-8dc4-67135cc9bd8a
+        type: string
+      collect_id:
+        description: |-
+          required: false
+          example: 98fe67fc-c03f-11ee-bbee-4345224d414f
+        type: string
+      created_at:
+        description: |-
+          required: false
+          example: 509567558
+        type: integer
+      date_of_birth:
+        description: |-
+          required: true
+          example: 1970-01-01
+        type: string
+      document_id:
+        description: |-
+          required: true
+          example: 5e7a981c-c03f-11ee-b116-9b12c59362b9
+        type: string
+      document_type:
+        description: |-
+          required: true
+          example: PDA1
+        enum:
+        - PDA1
+        - EHIC
+        type: string
+      document_version:
+        description: |-
+          required: true
+          example: "1.0.0"
+        type: string
+      first_name:
+        description: |-
+          required: true
+          example: John
+        type: string
+      last_name:
+        description: |-
+          required: true
+          example: Doe
+        type: string
+      member_state:
+        description: |-
+          required: true
+          example: "DE"
+        type: string
+      revocation:
+        allOf:
+        - $ref: '#/definitions/model.Revocation'
+        description: Revocation is a collection of fields representing a revocation
+      valid_from:
+        description: |-
+          required: false
+          example: 509567558
+        type: integer
+      valid_to:
+        description: |-
+          required: false
+          example: 509567558
+        type: integer
+    required:
+    - authentic_source
+    - authentic_source_person_id
+    - date_of_birth
+    - document_id
+    - document_type
+    - document_version
+    - first_name
+    - last_name
+    - member_state
+    - valid_from
+    - valid_to
+    type: object
+  model.QR:
+    properties:
+      base64_image:
+        type: string
+      deep_link:
+        type: string
+    required:
+    - base64_image
+    - deep_link
+    type: object
+  model.Revocation:
+    properties:
+      follow_up_credential:
+        description: |-
+          FollowUpCredential is the ID of the follow-up credential
+          required: false
+          example: https://example.com/credential/?collect_id=8dbd2680-c03f-11ee-a21b-034aafe41222
+        type: string
+      id:
+        description: |-
+          ID is the ID of the revocation
+          required: false
+          example: 8dbd2680-c03f-11ee-a21b-034aafe41222
+        type: string
+      reason:
+        description: |-
+          Reason is the reason for revocation
+          required: false
+          example: lost or stolen
+        type: string
+      revoked:
+        description: |-
+          Revoked is a flag to indicate if the document has been revoked
+          required: false
+          example: false
+        type: boolean
+      revoked_at:
+        description: |-
+          RevokedAt is the time the document was revoked or going to be revoked
+          required: false
+          example: 509567558
+        type: integer
+    type: object
+  model.Upload:
+    properties:
+      attestation:
+        $ref: '#/definitions/model.Attestation'
+      document_data:
+        additionalProperties: {}
+        type: object
+      identity:
+        $ref: '#/definitions/model.Identity'
+      meta:
+        $ref: '#/definitions/model.MetaData'
+      qr:
+        $ref: '#/definitions/model.QR'
+    required:
+    - attestation
+    - document_data
+    - identity
+    - meta
+    type: object
+  types.Document:
+    properties:
+      base64_data:
+        type: string
+      contact_info:
+        type: string
+      create_ts:
+        type: integer
+      error:
+        type: string
+      location:
+        type: string
+      message:
+        type: string
+      modify_ts:
+        type: integer
+      name:
+        type: string
+      reason:
+        type: string
+      revoked_ts:
+        type: integer
+      transaction_id:
+        type: string
+    type: object
+  types.Validation:
+    properties:
+      error:
+        type: string
+      is_revoked:
+        type: boolean
+      message:
+        type: string
+      transaction_id:
+        type: string
+      valid_signature:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  title: Datastore API
+  version: 0.1.0
+paths:
+  /document:
+    delete:
+      consumes:
+      - application/json
+      description: delete one document endpoint
+      operationId: delete-document
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.DeleteDocumentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: DeleteDocument
+      tags:
+      - dc4eu
+    post:
+      consumes:
+      - application/json
+      description: Get document endpoint
+      operationId: get-document
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.GetDocumentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.GetDocumentReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: GetDocument
+      tags:
+      - dc4eu
+  /document/collect_id:
+    post:
+      consumes:
+      - application/json
+      description: Get document by collect code endpoint
+      operationId: get-document-collect-id
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.GetDocumentCollectIDRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.GetDocumentCollectIDReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: GetDocumentByCollectID
+      tags:
+      - dc4eu
+  /document/revoke:
+    post:
+      consumes:
+      - application/json
+      description: Revoke one document
+      operationId: revoke-document
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.RevokeDocumentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: RevokeDocument
+      tags:
+      - dc4eu
+  /id_mapping:
+    post:
+      consumes:
+      - application/json
+      description: ID mapping endpoint
+      operationId: id-mapping
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/model.MetaData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.IDMappingReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: IDMapping
+      tags:
+      - dc4eu
+  /ladok/pdf/{transaction_id}:
+    get:
+      consumes:
+      - application/json
+      description: fetch a singed pdf
+      operationId: ladok-pdf-fetch
+      parameters:
+      - description: transaction_id
+        in: path
+        name: transaction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.PDFGetSignedReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: fetch singed pdf
+      tags:
+      - ladok
+  /ladok/pdf/revoke/{transaction_id}:
+    put:
+      consumes:
+      - application/json
+      description: revoke a singed pdf
+      operationId: ladok-pdf-revoke
+      parameters:
+      - description: transaction_id
+        in: path
+        name: transaction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.PDFRevokeReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: revoke signed pdf
+      tags:
+      - ladok
+  /ladok/pdf/sign:
+    post:
+      consumes:
+      - application/json
+      description: sign base64 encoded PDF
+      operationId: ladok-pdf-sign
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.PDFSignRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.PDFSignReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Sign pdf
+      tags:
+      - ladok
+  /ladok/pdf/validate:
+    post:
+      consumes:
+      - application/json
+      description: validate a signed base64 encoded PDF
+      operationId: ladok-pdf-validate
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.PDFValidateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.PDFValidateReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Validate pdf
+      tags:
+      - ladok
+  /notification:
+    post:
+      consumes:
+      - application/json
+      description: notification endpoint
+      operationId: generic-notification
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.NotificationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.NotificationReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Notification
+      tags:
+      - dc4eu
+  /portal:
+    post:
+      consumes:
+      - application/json
+      description: Get portal data endpoint
+      operationId: portal
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.PortalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.PortalReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Portal
+      tags:
+      - dc4eu
+  /revoke:
+    post:
+      consumes:
+      - application/json
+      description: Revoke endpoint
+      operationId: generic-revoke
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.RevokeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/apiv1.RevokeReply'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Revoke
+      tags:
+      - dc4eu
+  /upload:
+    post:
+      consumes:
+      - application/json
+      description: Upload endpoint
+      operationId: generic-upload
+      parameters:
+      - description: ' '
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/apiv1.UploadRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helpers.ErrorResponse'
+      summary: Upload
+      tags:
+      - dc4eu
+swagger: "2.0"
