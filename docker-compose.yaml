@@ -9,6 +9,8 @@ services:
     volumes:
       - ./config.yaml:/config.yaml:ro
       - /var/log/sunet:/var/log/sunet
+    expose:
+      - 80
     depends_on:
       - redis
       - mongo
@@ -45,20 +47,6 @@ services:
     networks:
       vc-net:
         ipv4_address: 172.16.100.4
-    environment:
-      - "VC_CONFIG_YAML=config.yaml"
-
-  cache:
-    container_name: "vc_cache"
-    image: "docker.sunet.se/dc4eu/cache:${TAG}"
-    restart: always
-    volumes:
-      - ./config.yaml:/config.yaml:ro
-    depends_on:
-      - redis
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.5
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 

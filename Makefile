@@ -7,3 +7,8 @@ stop:
 	docker-compose -f docker-compose.yaml rm -s -f
 
 restart: stop start
+
+copy_docs:
+	rm -r ./docs
+	cp -r ../vc/docs/apigw ./docs
+	rm ./docs/docs.go
