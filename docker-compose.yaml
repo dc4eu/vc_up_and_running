@@ -4,7 +4,7 @@ version: "3"
 services:
   apigw:
     container_name: "vc_apigw"
-    image: "docker.sunet.se/dc4eu/apigw:${TAG}"
+    image: "${DOCKERHUB_FQDN}/dc4eu/apigw:${TAG}"
     restart: always
     volumes:
       - ./config.yaml:/config.yaml:ro
@@ -22,7 +22,7 @@ services:
 
   verifier:
     container_name: "vc_verifier"
-    image: "docker.sunet.se/dc4eu/verifier:${TAG}"
+    image: "${DOCKERHUB_FQDN}/dc4eu/verifier:${TAG}"
     restart: always
     volumes:
       - ./config.yaml:/config.yaml:ro
@@ -37,7 +37,7 @@ services:
 
   registry:
     container_name: "vc_registry"
-    image: "docker.sunet.se/dc4eu/registry:${TAG}"
+    image: "${DOCKERHUB_FQDN}/dc4eu/registry:${TAG}"
     restart: always
     volumes:
       - ./config.yaml:/config.yaml:ro
@@ -52,7 +52,7 @@ services:
 
   persistent:
     container_name: "vc_persistent"
-    image: "docker.sunet.se/dc4eu/persistent:${TAG}"
+    image: "${DOCKERHUB_FQDN}/dc4eu/persistent:${TAG}"
     restart: always
     volumes:
       - ./config.yaml:/config.yaml:ro
