@@ -5,18 +5,18 @@ services:
   apigw:
     container_name: "vc_apigw"
     image: "${DOCKERHUB_FQDN}/dc4eu/apigw:${TAG}"
+    
     restart: always
     volumes:
-      - ./config.yaml:/config.yaml:ro
-      - /var/log/sunet:/var/log/sunet
+      - ${PWD}/config.yaml:/config.yaml:ro
+      - ${PWD}/log:/var/log/sunet
     expose:
-      - 80
+      - 8080
+    ports:
+      - "${APIGW_HOST_PORT:-8080}:8080"
     depends_on:
       - redis
       - mongo
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.2
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -25,13 +25,10 @@ services:
     image: "${DOCKERHUB_FQDN}/dc4eu/verifier:${TAG}"
     restart: always
     volumes:
-      - ./config.yaml:/config.yaml:ro
+      - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
       - redis
       - mongo
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.3
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -40,13 +37,10 @@ services:
     image: "${DOCKERHUB_FQDN}/dc4eu/registry:${TAG}"
     restart: always
     volumes:
-      - ./config.yaml:/config.yaml:ro
+      - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
       - redis
       - mongo
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.4
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -55,13 +49,10 @@ services:
     image: "${DOCKERHUB_FQDN}/dc4eu/persistent:${TAG}"
     restart: always
     volumes:
-      - ./config.yaml:/config.yaml:ro
+      - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
       - redis
       - mongo
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.6
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -74,9 +65,6 @@ services:
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.9
 
   mongo:
     image: mongo:4.0.10
@@ -86,9 +74,6 @@ services:
       - 27017
     volumes:
       - mongo_data:/data
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.10
 
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -98,21 +83,11 @@ services:
       - 16686
       - 4317
       - 4318
-    networks:
-      vc-net:
-        ipv4_address: 172.16.100.11
+    ports:
+      - "${JAEGER_HOST_PORT:-16686}:16686"
     environment:
       - "COLLECTOR_OTLP_ENABLED=true"
 
-networks:
-  vc-net:
-    driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: br-vc
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.100.0/24
 volumes:
   redis_data:
   mongo_data:
