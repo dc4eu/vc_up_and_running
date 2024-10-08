@@ -36,7 +36,7 @@ the issuer can get the document from either implementation.
 
 file `.env` sets the version, for all VC containers.
 
-VC is using semver with `latest` pointing to the latest number tag (ie. 0.3.1)
+VC is using semver with `latest` pointing to the latest number tag (ie. 0.4.4)
 
 ## Start, Stop & Restart
 
@@ -55,10 +55,22 @@ Notice, `dc4eu` tag in swagger is used by VC project since this project is share
 
 ### Endpoints
 
-`GET http://<apigw-url>/swagger/doc.json`
+The ports for both the API Gateway and Jaeger services are configured in the `.env` file. By default, the following ports are used, but they can be customized by modifying the `.env` file.
 
-or with web browser: `http://<apigw-url>/swagger/index.html`
+**API Gateway**:
 
-## Jaeger tracing
+The `APIGW_HOST_PORT` is set in the `.env` file. By default, it is set to `8080`.
 
-http://172.16.100.11:16686
+Access the Swagger documentation:
+- `http://127.0.0.1:8080/swagger/index.html`
+
+**Jaeger Tracing**:
+
+The `JAEGER_HOST_PORT` is also set in the `.env` file, defaulting to `16686`.
+- `http://127.0.0.1:16686`
+
+### Configuring Ports
+
+To change the default port mappings, modify the corresponding variables in the `.env` file:
+- `APIGW_HOST_PORT`: Sets the port for the API Gateway.
+- `JAEGER_HOST_PORT`: Sets the port for the Jaeger Tracing UI.
