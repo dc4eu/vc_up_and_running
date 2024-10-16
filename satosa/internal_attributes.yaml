@@ -1,0 +1,34 @@
+---
+attributes:
+  name:
+    openid:
+    - name
+    saml:
+    - displayName
+  givenname:
+    saml:
+    - givenName
+    openid:
+    - given_name
+  surname:
+    saml:
+    - sn
+    openid:
+    - family_name
+  mail:
+    openid:
+    - email
+    saml:
+    - mail
+  subject-id:
+    openid:
+    - sub
+    saml:
+    - subject-id
+    - eduPersonPrincipalName
+  edupersonscopedaffiliation:
+    saml:
+    - eduPersonScopedAffiliation
+    openid:
+    - scoped-affiliation
+
