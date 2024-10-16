@@ -5,7 +5,7 @@ services:
   apigw:
     container_name: "vc_apigw"
     image: "${DOCKERHUB_FQDN}/dc4eu/apigw:${TAG}"
-    
+
     restart: always
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
@@ -15,8 +15,23 @@ services:
     ports:
       - "${APIGW_HOST_PORT:-8080}:8080"
     depends_on:
-      - redis
       - mongo
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
+  issuer:
+    container_name: "vc_issuer"
+    image: "${DOCKERHUB_FQDN}/dc4eu/issuer:${TAG}"
+    restart: always
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+      - /var/log/sunet:/var/log/sunet
+      - ${PWD}/private_ec256.pem:/private_ec256.pem:ro
+    depends_on:
+      - mongo
+    networks:
+      vc-dev-net:
+        ipv4_address: 172.16.50.4
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -27,7 +42,6 @@ services:
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
-      - redis
       - mongo
     environment:
       - "VC_CONFIG_YAML=config.yaml"
@@ -39,7 +53,6 @@ services:
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
-      - redis
       - mongo
     environment:
       - "VC_CONFIG_YAML=config.yaml"
@@ -55,16 +68,6 @@ services:
       - mongo
     environment:
       - "VC_CONFIG_YAML=config.yaml"
-
-  redis:
-    image: redis:alpine
-    container_name: "vc_redis"
-    restart: always
-    expose:
-      - 6373
-    volumes:
-      - redis_data:/data
-    command: redis-server --appendonly yes
 
   mongo:
     image: mongo:4.0.10
@@ -89,5 +92,4 @@ services:
       - "COLLECTOR_OTLP_ENABLED=true"
 
 volumes:
-  redis_data:
   mongo_data:
