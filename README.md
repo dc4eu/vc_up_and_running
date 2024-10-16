@@ -3,7 +3,8 @@
 This repo aims to get VC project up and running. The standard setup is docker and/or docker-compose, it's possible to run each service directly without docker. As of now, this project only support linux since no other use case has present it self yet. 
 
 ## what does VC stand for and what does it do?
-VC stands for Verfifiable Credential, and is just a name for services that provide a `ApiGW`, `Datastore`, `Issuer`, `Verifier` and `Registry`.
+VC stands for Verfifiable Credential, and is just a name for services that provide a `ApiGW`, `Issuer`, `Verifier` and `Registry`.
+
 
 ### ApiGW
 ApiGW is the frontend of the backend, it's here every external connection is made. ApiGw is stateless witch means that it can be run in parallel over multiple server or even datacenters.
@@ -36,14 +37,21 @@ the issuer can get the document from either implementation.
 
 file `.env` sets the version, for all VC containers.
 
-VC is using semver with `latest` pointing to the latest number tag (ie. 0.4.4)
+VC is using semver with `latest` pointing to the latest number tag (ie. 0.5.4)
 
-## Start, Stop & Restart
+## Use it!
 
+### Prerequisite
+#### Create signing key
+`./gen_ec_sign_key.sh`
+
+### Start
 `make start` or `./start.sh` or `docker-compose -f docker-compose.yaml up -d --remove-orphans`
 
+### Stop
 `make stop` or `./stop` or `docker-compose -f docker-compose.yaml rm -s -f`
 
+### Restart
 `make restart`
 
 ## API 
