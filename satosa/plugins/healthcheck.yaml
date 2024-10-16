@@ -1,0 +1,4 @@
+---
+module: swamid_plugins.healthcheck.HealthCheck
+name: HealthCheck
+

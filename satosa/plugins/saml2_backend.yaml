@@ -1,0 +1,50 @@
+---
+config:
+  sp_config:
+    organization:
+      display_name: Vetenskapsrådet
+      name: Vetenskapsrådet
+      url: https://sunet.se
+    contact_person:
+    - contact_type: technical
+      email_address: noc@sunet.se
+      given_name: Technical
+    - contact_type: support
+      email_address: noc@sunet.se
+      given_name: Support
+    key_file: backend.key
+    cert_file: backend.crt
+    encryption_keypairs:
+    - key_file: backend.key
+      cert_file: backend.crt
+    allow_unknown_attributes: true
+    metadata:
+      mdq:
+      - url: https://mds.swamid.se/qa
+        cert: "/etc/satosa/swamid-qa.crt"
+    entityid: https://satosa-test-1.sunet.se/sp
+    accepted_time_diff: 180
+    service:
+      sp:
+        name_id_format:
+        - urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+        allow_unsolicited: true
+        endpoints:
+          assertion_consumer_service:
+          - - "<base_url>/<name>/acs/post"
+            - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+          - - "<base_url>/<name>/acs/redirect"
+            - urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+          discovery_response:
+          - - "<base_url>/<name>/disco"
+            - urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol
+        want_response_signed: false
+        want_assertions_signed: false
+        want_assertions_or_response_signed: true
+    xmlsec_binary: "/usr/bin/xmlsec1"
+  disco_srv: https://ds.qa.swamid.se/ds/
+  attribute_profile: saml
+module: satosa.backends.saml2.SAMLBackend
+name: Saml2SP
+plugin: BackendModulePlugin
+

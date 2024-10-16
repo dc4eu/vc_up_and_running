@@ -1,0 +1,47 @@
+---
+BASE: https://satosa-test-1.sunet.se
+INTERNAL_ATTRIBUTES: internal_attributes.yaml
+BACKEND_MODULES:
+- plugins/saml2_backend.yaml
+FRONTEND_MODULES:
+- plugins/oidc_frontend.yaml
+MICRO_SERVICES:
+- plugins/healthcheck.yaml
+LOGGING:
+  version: 1
+  formatters:
+    default:
+      format: "%(asctime)s [%(process)d] [%(levelname)s] %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: default
+      stream: ext://sys.stdout
+  loggers:
+    satosa:
+      level: DEBUG
+      handlers:
+      - console
+    saml2:
+      level: DEBUG
+      handlers:
+      - console
+    swamid_plugins:
+      level: DEBUG
+      handlers:
+      - console
+    satosa_openid4vci:
+      level: DEBUG
+      handlers:
+      - console
+  root:
+    level: DEBUG
+    handlers:
+      - console
+STATE_ENCRYPTION_KEY: handset-scary-unclad-gurgling
+USER_ID_HASH_SALT: untaken-whacky-stingray-battle
+CUSTOM_PLUGIN_MODULE_PATHS:
+- plugins
+COOKIE_STATE_NAME: SATOSA_STATE
+
