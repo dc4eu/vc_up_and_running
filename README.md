@@ -42,13 +42,10 @@ VC is using semver with `latest` pointing to the latest number tag (ie. 0.5.4)
 ## Use it!
 
 ### Start
-`make start` or `./start.sh` or `docker-compose -f docker-compose.yaml up -d --remove-orphans`
+`./start.sh` or `docker-compose -f docker-compose.yaml up -d --remove-orphans`
 
 ### Stop
-`make stop` or `./stop` or `docker-compose -f docker-compose.yaml rm -s -f`
-
-### Restart
-`make restart`
+`./stop` or `docker-compose -f docker-compose.yaml rm -s -f`
 
 ## API 
 
