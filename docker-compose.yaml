@@ -85,19 +85,19 @@ services:
       - "COLLECTOR_OTLP_ENABLED=true"
 
   satosa:
-    image: docker.sunet.se/satosa:wallet
+    image: "${DOCKERHUB_FQDN}/satosa:wallet"
     container_name: satosa_issuer
     restart: always
     expose:
       - 443
     ports:
-      - '443:8000'
+      - "443:8000"
     environment:
-      - 'METADATA_DIR=/etc/satosa/metadata'
-      - 'WORKER_TIMEOUT=120'
+      - "METADATA_DIR=/etc/satosa/metadata"
+      - "WORKER_TIMEOUT=120"
     volumes:
-      - './satosa:/etc/satosa'
-      - './certs:/etc/dehydrated'
+      - ${PWD}/satosa:/etc/satosa
+      - ${PWD}/certs:/etc/dehydrated
 
 volumes:
   mongo_data:
