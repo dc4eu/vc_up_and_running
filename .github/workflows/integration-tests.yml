@@ -1,0 +1,21 @@
+name: Integration tests with local docker compose
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Start the compose
+      run: ./start.sh
+      #TODO add stuff here
+    - name: Stop the compose
+      run: ./stop.sh 
+
