@@ -41,10 +41,6 @@ VC is using semver with `latest` pointing to the latest number tag (ie. 0.5.4)
 
 ## Use it!
 
-### Prerequisite
-#### Create signing key
-`./gen_ec_sign_key.sh`
-
 ### Start
 `make start` or `./start.sh` or `docker-compose -f docker-compose.yaml up -d --remove-orphans`
 
