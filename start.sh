@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-./gen_ec_sign_key.sh
 if [ ! -f private_ec256.pem ]; then
     printf "Create signing key\n"
     # generate a private key for a curve
