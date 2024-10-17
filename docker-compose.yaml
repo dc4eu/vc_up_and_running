@@ -29,9 +29,6 @@ services:
       - ${PWD}/private_ec256.pem:/private_ec256.pem:ro
     depends_on:
       - mongo
-    networks:
-      vc-dev-net:
-        ipv4_address: 172.16.50.4
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
@@ -64,7 +61,6 @@ services:
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
     depends_on:
-      - redis
       - mongo
     environment:
       - "VC_CONFIG_YAML=config.yaml"

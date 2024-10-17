@@ -34,7 +34,7 @@ issuer:
   api_server:
     addr: :8080
   grpc_server:
-    addr: vc_dev_issuer:8090
+    addr: vc_issuer:8090
   signing_key_path: "/private_ec256.pem"
   jwt_attribute:
     issuer:  https://issuer.sunet.se
