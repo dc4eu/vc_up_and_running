@@ -357,5 +357,16 @@ config:
                   kwargs:
                     client_authn_method:
                     - dpop_client_auth
+                    credential_constructor:
+                      PersonIdentificationData:
+                        class:
+                          openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
+                        kwargs:
+                          url: http://vc_apigw/api/v1/credential
+                          jwks_url: http://vc_apigw/api/v1/credential/.well-known/jwks
+                          body:
+                            authentic_source: SUNET
+                            document_type: PDA1
+                            credential_type: sdjwt
               template_dir: template
 
