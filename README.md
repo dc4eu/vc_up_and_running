@@ -39,6 +39,34 @@ file `.env` sets the version, for all VC containers.
 
 VC is using semver with `latest` pointing to the latest number tag (ie. 0.5.4)
 
+## Generating the Private Key for Signature Operations
+
+To sign operations in the Issuer, you'll need to generate an ECDSA private key using the `prime256v1` curve. Follow the steps below to generate the key:
+
+### Place the Key in the Project Directory
+
+Make sure the private_ec256.pem file is placed in the root of your project directory. The Docker Compose setup will automatically mount the key inside the container.
+
+### Generate the Private Key
+
+You can use `openssl` to create the private key with the following command:
+
+```bash
+openssl ecparam -name prime256v1 -genkey -noout -out private_ec256.pem
+```
+
+This will generate a private key file named `private_ec256.pem` using the `prime256v1` curve.
+
+### Generate the Public Key
+
+If needed, you can derive the corresponding public key from the private key with the following command:
+
+```bash
+openssl ec -in private_ec256.pem -pubout -out public_ec256.pem
+```
+
+This public key can be used to verify signatures.
+
 ## Use it!
 
 ### Start
