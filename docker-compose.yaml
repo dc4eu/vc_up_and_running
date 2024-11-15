@@ -86,18 +86,37 @@ services:
 
   satosa:
     image: "${DOCKERHUB_FQDN}/satosa:wallet"
-    container_name: satosa_issuer
+    container_name: satosa-issuer
     restart: always
+    depends_on:
+      - simplesamlphp
     expose:
-      - 443
+      - 1443
     ports:
-      - "443:8000"
+      - "1443:8000"
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
+      - "REQUESTS_CA_BUNDLE=/etc/satosa/simplesaml_webcert.pem" #Workaround to accept self signed cert
     volumes:
       - ${PWD}/satosa:/etc/satosa
       - ${PWD}/certs:/etc/dehydrated
 
+  simplesamlphp:
+    image: "${DOCKERHUB_FQDN}/swamid/simplesamlphp"
+    container_name: simplesamlphp
+    restart: always
+    expose:
+      - "8443"
+    ports:
+      - "8443:443"
+    volumes:
+      - "./simplesamlphp/apache2.conf:/etc/apache2/sites-enabled/ssp.conf:ro"
+      - "./simplesamlphp/authsources.php:/var/simplesamlphp/config/authsources.php:ro"
+      - "./simplesamlphp/config.php:/var/simplesamlphp/config/config.php:ro"
+      - "./simplesamlphp/samlcert:/var/simplesamlphp/cert:ro"
+      - "./simplesamlphp/webcert:/certs:ro"
+      - "./simplesamlphp/saml20-idp-hosted.php:/var/simplesamlphp/metadata/saml20-idp-hosted.php:ro"
+      - "./simplesamlphp/satosa-issuer.xml:/var/simplesamlphp/metadata/satosa-issuer.xml:ro"
 volumes:
   mongo_data:

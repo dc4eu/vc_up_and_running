@@ -5,13 +5,6 @@ config:
       display_name: Vetenskapsrådet
       name: Vetenskapsrådet
       url: https://sunet.se
-    contact_person:
-    - contact_type: technical
-      email_address: noc@sunet.se
-      given_name: Technical
-    - contact_type: support
-      email_address: noc@sunet.se
-      given_name: Support
     key_file: backend.key
     cert_file: backend.crt
     encryption_keypairs:
@@ -19,10 +12,10 @@ config:
       cert_file: backend.crt
     allow_unknown_attributes: true
     metadata:
-      mdq:
-      - url: https://mds.swamid.se/qa
-        cert: "/etc/satosa/swamid-qa.crt"
-    entityid: https://satosa-test-1.sunet.se/sp
+      remote:
+        - url: https://simplesamlphp/simplesaml/saml2/idp/metadata.php
+          freshness_period: "PT12H"
+    entityid: https://satosa-issuer/sp
     accepted_time_diff: 180
     service:
       sp:
