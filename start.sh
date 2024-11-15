@@ -23,13 +23,13 @@ if [ ! -f simplesamlphp/webcert/privkey.pem ]; then
     printf "Create simplesamlphp web certificates.\n"
     [ -d simplesamlphp/webcert ] || mkdir simplesamlphp/webcert
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/webcert/privkey.pem -out simplesamlphp/webcert/cert.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
-    cp simplesamlphp/samlcert/saml_metadata.pem satosa/metadata.crt
+    cp simplesamlphp/webcert/cert.pem satosa/simplesaml_webcert.pem
 fi
 if [ ! -f simplesamlphp/samlcert/saml_metadata.key ]; then
     printf "Create simplesamlphp saml certificates.\n"
     [ -d simplesamlphp/samlcert ] || mkdir simplesamlphp/samlcert
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
-    cp simplesamlphp/webcert/cert.pem satosa/simplesaml_webcert.pem
+    cp simplesamlphp/samlcert/saml_metadata.pem satosa/
 fi
 
 if [ ! -f satosa/metadata/backend.xml ]; then

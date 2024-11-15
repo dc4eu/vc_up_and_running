@@ -1,7 +1,7 @@
 log/*
 !log/.gitkeep
 satosa/backend.*
-satosa/metdata.*
+satosa/metadata.*
 satosa/metadata/backend.xml
 satosa/fe_storage/
 satosa/op_storage/
