@@ -33,4 +33,3 @@ services:
       - "./simplesamlphp/samlcert:/var/simplesamlphp/cert:ro"
       - "./simplesamlphp/webcert:/certs:ro"
       - "./simplesamlphp/saml20-idp-hosted.php:/var/simplesamlphp/metadata/saml20-idp-hosted.php:ro"
-      - "./simplesamlphp/satosa-issuer.xml:/var/simplesamlphp/metadata/satosa-issuer.xml:ro"
