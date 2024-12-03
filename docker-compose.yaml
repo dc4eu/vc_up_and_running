@@ -68,6 +68,8 @@ services:
     restart: always
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
+    depends_on:
+      - apigw
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
