@@ -1,5 +1,5 @@
 ---
-BASE: https://satosa-test-1.sunet.se
+BASE: https://satosa_issuer
 INTERNAL_ATTRIBUTES: internal_attributes.yaml
 BACKEND_MODULES:
 - plugins/saml2_backend.yaml

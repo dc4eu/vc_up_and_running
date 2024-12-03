@@ -1,2 +1,15 @@
 log/*
 !log/.gitkeep
+satosa/backend.*
+satosa/metadata.*
+satosa/metadata/backend.xml
+satosa/fe_storage/
+satosa/op_storage/
+satosa/private/
+satosa/public/
+satosa/simplesaml_webcert.pem
+private_ec256.pem
+public_ec256.pem
+simplesamlphp/satosa-issuer.xml
+simplesamlphp/samlcert/
+simplesamlphp/webcert/
