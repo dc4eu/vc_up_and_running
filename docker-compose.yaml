@@ -62,6 +62,15 @@ services:
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
+  mockas:
+    container_name: "vc_mockas"
+    image: "${DOCKERHUB_FQDN}/dc4eu/mockas:${TAG}"
+    restart: always
+    volumes:
+      - ${PWD}/config.yaml:/config.yaml:ro
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
   mongo:
     image: mongo:4.0.10
     container_name: "vc_mongo"
