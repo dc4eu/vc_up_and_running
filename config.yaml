@@ -42,7 +42,6 @@
       enable_not_before: true
       valid_duration: 3600
       verifiable_credential_type: "https://credential.sunet.se/identity_credential"
-      static_host: "http://vc_dev_portal:8080/statics"
   
   verifier:
     api_server:
