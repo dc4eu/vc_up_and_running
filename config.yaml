@@ -57,11 +57,7 @@
       init_leaf: 575cea4a-5725-11ee-8287-2b486b7ace28
     grpc_server:
       addr: vc_registry:8090
-  
-  persistent:
-    api_server:
-      addr: :8080
-  
+    
   apigw:
     identifier: "SUNET_v1"
     trust_model:

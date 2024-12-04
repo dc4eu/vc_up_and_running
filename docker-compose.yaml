@@ -51,17 +51,6 @@ services:
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
-  persistent:
-    container_name: "vc_persistent"
-    image: "${DOCKERHUB_FQDN}/dc4eu/persistent:${TAG}"
-    restart: always
-    volumes:
-      - ${PWD}/config.yaml:/config.yaml:ro
-    depends_on:
-      - mongo
-    environment:
-      - "VC_CONFIG_YAML=config.yaml"
-
   mockas:
     container_name: "vc_mockas"
     image: "${DOCKERHUB_FQDN}/dc4eu/mockas:${TAG}"
