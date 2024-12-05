@@ -143,8 +143,8 @@ $config = [
     'language.cookie.lifetime' => (60 * 60 * 24 * 900),
     'language.cookie.samesite' => $httpUtils->canSetSameSiteNone() ? 'None' : null,
 
-    'theme.use' => 'swamid:swamid',
-    'theme.controller' => '\SimpleSAML\Module\swamid\FancyThemeController',
+    'theme.use' => 'default',
+//    'theme.controller' => '\SimpleSAML\Module\swamid\FancyThemeController',
     'template.auto_reload' => false,
     'production' => false,
     'assets' => [
