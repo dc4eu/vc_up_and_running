@@ -91,16 +91,18 @@ services:
     depends_on:
       - simplesamlphp
     expose:
-      - 1443
+      - 443
     ports:
-      - "1443:8000"
+      - "443:8000"
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
       - "REQUESTS_CA_BUNDLE=/etc/satosa/simplesaml_webcert.pem" #Workaround to accept self signed cert
+      - "BASE=${ISSUER_FQDN}"
     volumes:
       - ${PWD}/satosa:/etc/satosa
-      - ${PWD}/certs:/etc/dehydrated
+      - ${PWD}/certs/https.crt:/etc/satosa/https.crt
+      - ${PWD}/certs/https.key:/etc/satosa/https.key
 
   simplesamlphp:
     image: "${DOCKERHUB_FQDN}/swamid/simplesamlphp"

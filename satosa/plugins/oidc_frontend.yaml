@@ -4,9 +4,9 @@ name: oidc-front
 config:
   domain: localhost
   server_name: localhost
-  base_url: "<base_url>"
+  base_url: !ENV BASE
   storage:
-    class: satosa_oidcop.core.storage.file.FilesystemDB
+    class: satosa_oidcop.core.storage.file.FilesystemDBNoCache
     kwargs:
       fdir: storage
       key_conv: idpyoidc.util.Base64
@@ -15,12 +15,12 @@ config:
   salt_size: 8
   op:
     server_info:
-      entity_id: "<base_url>"
+      entity_id: !ENV BASE
       persistence:
         class: satosa_idpyop.persistence.federation_entity.FEPersistence
         kwargs:
           storage:
-            class: satosa_idpyop.core.storage.file.FilesystemDB
+            class: satosa_idpyop.core.storage.file.FilesystemDBNoCache
             kwargs:
               fdir: fe_storage
               key_conv: idpyoidc.util.Base64
@@ -84,7 +84,7 @@ config:
                 class: satosa_idpyop.persistence.openid_provider.OPPersistence
                 kwargs:
                   storage:
-                    class: satosa_idpyop.core.storage.file.FilesystemDB
+                    class: satosa_idpyop.core.storage.file.FilesystemDBNoCache
                     kwargs:
                       fdir: op_storage
                       key_conv: idpyoidc.util.Base64
@@ -260,10 +260,10 @@ config:
                     dpop_endpoints:
                     - credential
               persistence:
-                class: satosa_idpyop.persistence.openid_provider.OPPersistence
+                class: satosa_idpyop.persistence.openid_credential_issuer.OCIPersistence
                 kwargs:
                   storage:
-                    class: satosa_idpyop.core.storage.file.FilesystemDB
+                    class: satosa_idpyop.core.storage.file.FilesystemDBNoCache
                     kwargs:
                       fdir: op_storage
                       key_conv: idpyoidc.util.Base64
@@ -292,9 +292,9 @@ config:
                   - email
                   - nickname
                 credential_configurations_supported:
-                  PersonIdentificationData:
+                  PDA1Credential:
                     format: vc+sd-jwt
-                    id: eudiw.pid.se
+                    id: eudiw.pda1.se
                     cryptographic_binding_methods_supported:
                     - jwk
                     cryptographic_suites_supported:
@@ -303,18 +303,13 @@ config:
                     - ES256
                     - ES512
                     display:
-                      name: Swedish PID Provider Example
+                      name: Swedish PDA1 Provider Example
                       locale: en-US
-                    vct: PersonIdentificationData
+                    vct: PDA1Credential
                     credential_definition:
                       type:
-                      - PersonIdentificationData
+                      - PDA1Credential
                       credentialSubject:
-                        name:
-                          display:
-                          - locale: en-US
-                            name: Name of a person
-                          mandatory: true
                         family_name:
                           display:
                           - locale: en-US
@@ -329,16 +324,44 @@ config:
                           - locale: it-IT
                             name: Nome
                           mandatory: true
-                        email:
+                        birth_date:
                           display:
                           - locale: en-US
-                            name: Current email address
+                            name: Birth date
                           mandatory: true
-                        nickname:
-                          mandatory: true
+                  EHICCredential:
+                    format: vc+sd-jwt
+                    id: eudiw.ehic.se
+                    cryptographic_binding_methods_supported:
+                      - jwk
+                    cryptographic_suites_supported:
+                      - RS256
+                      - RS512
+                      - ES256
+                      - ES512
+                    display:
+                      name: Swedish EHIC Provider Example
+                      locale: en-US
+                    vct:
+                      EHICCredential
+                    credential_definition:
+                      type:
+                        - EHICCredential
+                      credentialSubject:
+                        family_name:
                           display:
-                          - name: A persons nickname
-                            locale: en-US
+                            - locale: en-US
+                              name: Current Family Name
+                          mandatory: true
+                        given_name:
+                          display:
+                            - locale: en-US
+                              name: Current First Name
+                          mandatory: true
+                        birth_date:
+                          display:
+                            - locale: en-US
+                              name: Birth date
               keys:
                 key_defs:
                 - type: RSA
@@ -357,16 +380,20 @@ config:
                   kwargs:
                     client_authn_method:
                     - dpop_client_auth
-                  credential_constructor:
-                    PersonIdentificationData:
-                      class:
-                        openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
-                      kwargs:
-                        url: http://vc_apigw/api/v1/credential
-                        jwks_url: http://vc_apigw/api/v1/credential/.well-known/jwks
-                        body:
-                          authentic_source: SUNET
-                          document_type: PDA1
-                          credential_type: sdjwt
+                    credential_constructor:
+                      EHICCredential:
+                        class: openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
+                        kwargs:
+                          url: http://vc_apigw/api/v1/credential
+                          jwks_url: http://vc-interop-1.sunet.se/api/v1/credential/.well-known/jwks
+                          body:
+                            credential_type: sdjwt
+                            document_type: EHIC
+                      PDA1Credential:
+                        class: openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
+                        kwargs:
+                          url: http://vc_apigw/api/v1/credential
+                          jwks_url: http://vc-interop-1.sunet.se/api/v1/credential/.well-known/jwks
               template_dir: template
+              session_management: false
 
