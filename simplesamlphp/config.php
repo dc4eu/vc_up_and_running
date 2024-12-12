@@ -4,9 +4,7 @@ $httpUtils = new \SimpleSAML\Utils\HTTP();
 $config = [
 
     'baseurlpath' => 'simplesaml/',
-
-    'application' => [
-    ],
+    'application' => [],
 
     /*
      * The following settings are *filesystem paths* which define where
@@ -71,8 +69,7 @@ $config = [
      * This is an array of outputs. Each output has at least a 'class' option, which
      * selects the output.
      */
-    'statistics.out' => [
-    ],
+    'statistics.out' => [],
 
     'proxy' => null,
     'database.dsn' => 'mysql:host=localhost;dbname=saml',
@@ -87,8 +84,7 @@ $config = [
 
     'database.persistent' => false,
 
-    'database.secondaries' => [
-    ],
+    'database.secondaries' => [],
 
     'enable.saml20-idp' => true,
     'enable.adfs-idp' => false,
@@ -99,8 +95,8 @@ $config = [
         'core' => true,
         'admin' => true,
         'swamid' => true,
-	'saml' => true,
-	'entitycategories' => true,
+        'saml' => true,
+        'entitycategories' => true,
     ],
 
     'session.duration' => 8 * (60 * 60), // 8 hours.
@@ -144,7 +140,7 @@ $config = [
     'language.cookie.samesite' => $httpUtils->canSetSameSiteNone() ? 'None' : null,
 
     'theme.use' => 'default',
-//    'theme.controller' => '\SimpleSAML\Module\swamid\FancyThemeController',
+    //    'theme.controller' => '\SimpleSAML\Module\swamid\FancyThemeController',
     'template.auto_reload' => false,
     'production' => false,
     'assets' => [
@@ -162,7 +158,8 @@ $config = [
 
     'authproc.idp' => [
         10 => [
-            'class' => 'core:AttributeMap', 'name2oid'
+            'class' => 'core:AttributeMap',
+            'name2oid'
         ],
         30 => 'core:LanguageAdaptor',
 
@@ -194,7 +191,7 @@ $config = [
                 'urn:oid:2.5.4.4', #sn (aka surname)
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.11', #eduPersonAssurance
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.9', #eduPersonScopedAffiliation
-	    ],
+            ],
             //Copied also to 'http://www.geant.net/uri/dataprotection-code-of-conduct/v1'
             'https://refeds.org/category/code-of-conduct/v2' => [
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.10', #eduPersonTargetedID
@@ -218,17 +215,17 @@ $config = [
                 'urn:oid:0.9.2342.19200300.100.1.43', #co (aka friendlyCountryName)
                 'urn:oid:1.3.6.1.4.1.25178.1.2.9', #schacHomeOrganization
                 'urn:oid:1.3.6.1.4.1.25178.1.2.10', #schacHomeOrganizationType
-	    ],
+            ],
             'https://refeds.org/category/anonymous' => [
                 'urn:oid:1.3.6.1.4.1.25178.1.2.9', #schacHomeOrganization
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.9', #eduPersonScopedAffiliation
-	    ],
+            ],
             'https://refeds.org/category/pseudonymous' => [
                 'urn:oasis:names:tc:SAML:attribute:pairwise-id', #pairwise-id
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.11', #eduPersonAssurance
                 'urn:oid:1.3.6.1.4.1.25178.1.2.9', #schacHomeOrganization
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.9', #eduPersonScopedAffiliation
-	    ],
+            ],
             'https://refeds.org/category/personalized' => [
                 'urn:oasis:names:tc:SAML:attribute:subject-id', #subject-id
                 'urn:oid:0.9.2342.19200300.100.1.3', #mail
@@ -238,24 +235,23 @@ $config = [
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.11', #eduPersonAssurance
                 'urn:oid:1.3.6.1.4.1.25178.1.2.9', #schacHomeOrganization
                 'urn:oid:1.3.6.1.4.1.5923.1.1.1.9', #eduPersonScopedAffiliation
-	    ],
-            'https://myacademicid.org/entity-categories/esi' => [
-	    ],
-	],
-	51 => [
+            ],
+            'https://myacademicid.org/entity-categories/esi' => [],
+        ],
+        51 => [
             'class' => 'core:AttributeLimit',
             'default' => true,
-	],
+        ],
     ],
 
     'metadatadir' => 'metadata',
     'metadata.sources' => [
-	    ['type' => 'flatfile'],
-	    [
+        ['type' => 'flatfile'],
+        [
             'type' => 'xml',
             'file' => '/var/simplesamlphp/metadata/satosa-issuer.xml',
-	    'validateCertificate' => ['/var/simplesamlphp/samlcert/satosa-issuer.pem'],
-           ],
+            'validateCertificate' => ['/var/simplesamlphp/samlcert/satosa-issuer.pem'],
+        ],
     ],
 
     'metadata.sign.enable' => false,
@@ -278,4 +274,4 @@ $config = [
     'store.redis.sentinels' => [],
     'proxymode.passAuthnContextClassRef' => false,
 ];
-$config['authproc.idp'][50]['http://www.geant.net/uri/dataprotection-code-of-conduct/v1'] = $config['authproc.idp'][50][ 'https://refeds.org/category/code-of-conduct/v2'];
+$config['authproc.idp'][50]['http://www.geant.net/uri/dataprotection-code-of-conduct/v1'] = $config['authproc.idp'][50]['https://refeds.org/category/code-of-conduct/v2'];

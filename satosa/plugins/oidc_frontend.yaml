@@ -4,7 +4,7 @@ name: oidc-front
 config:
   domain: localhost
   server_name: localhost
-  base_url: !ENV BASE
+  base_url: <base_url>
   storage:
     class: satosa_oidcop.core.storage.file.FilesystemDBNoCache
     kwargs:
@@ -15,7 +15,7 @@ config:
   salt_size: 8
   op:
     server_info:
-      entity_id: !ENV BASE
+      entity_id: <base_url>
       persistence:
         class: satosa_idpyop.persistence.federation_entity.FEPersistence
         kwargs:
@@ -41,27 +41,30 @@ config:
         organization_name: The OP operator
         contacts: operations@op.example.com
       authority_hints:
-      - https://openidfed-test-1.sunet.se:7001
+      - https://openidfed-dev-1.sunet.se:7001
       trust_marks:
-      - eyJhbGciOiJSUzI1NiIsImtpZCI6IlUzTTRNMDlPTUZGaGNuTnJVbGhyVkU5ckxVOUpWMGwxVHpSaExXVjZVV1l4VlZOaE1UZzRVbWRxT0EifQ.eyJpYXQiOiAxNzE5ODQ2NjU0LCAiaWQiOiAiaHR0cDovL2RjNGV1LmV4YW1wbGUuY29tL1BlcnNvbklkZW50aWZpY2F0aW9uRGF0YS9zZSIsICJzdWIiOiAiaHR0cHM6Ly9zYXRvc2EtdGVzdC0xLnN1bmV0LnNlIiwgImV4cCI6IDE3NTEzODI2NTQsICJpc3MiOiAiaHR0cHM6Ly9vcGVuaWRmZWQtdGVzdC0xLnN1bmV0LnNlOjYwMDEifQ.p6zwGA2dK8OMWjzE2dMn3Bi3YDxmBpUGoDrNpiUaR1fAwL8kfFJZrW8lVRf1VybWkVZgXRJPsX90aoGEVmwdw30JEz18yGwAtoUtt19eYGjThArCxIGLYCaA9EhqWdNhAWAE5ust4sezZl57WsuPALGdVDZC0NKnue7mTqH_2cZj6REEpUeJ4n6OVwsJHqLg2oG87UYvxq1KZBwcbFji7nJMwu-Cmmv8NVL2FLQiHLKB5XlM6cMZpHorR2NwhQLUEiKsY8Ch5YkMN7-alFTH_afAAWTIDuGcoKmAk2Nf459yPx3bFcGD2YkttDLYxSKIV8yBZ55y7jLOJgiVsx0cnw
+        #      - eyJhbGciOiJSUzI1NiIsImtpZCI6IlUzTTRNMDlPTUZGaGNuTnJVbGhyVkU5ckxVOUpWMGwxVHpSaExXVjZVV1l4VlZOaE1UZzRVbWRxT0EifQ.eyJpYXQiOiAxNzMzMzk5NTY2LCAiaWQiOiAiaHR0cDovL2RjNGV1LmV4YW1wbGUuY29tL1BEQTFDcmVkZW50aWFsL3NlIiwgInN1YiI6ICJodHRwczovL3Rlcm1pbmF0b3IxNC50cmFucXVpbGxpdHkuc2UiLCAiZXhwIjogMTczNTk5MTU2NiwgImlzcyI6ICJodHRwczovL29wZW5pZGZlZC10ZXN0LTEuc3VuZXQuc2U6NjAwMSJ9.UzVCRbScRzXyCvZt0qV_7nGfBJaaa6VpLiHjUSynGBrzwlZAH_BFhEs70Z4Kb96RCO9izV_OgDRVrnTqxTKK9H7llBcTyuQMZiCWuVrk_ZFFk6DgmH9XkVKXWBVRgHEgpV-4IvMINz2Nx00EEVWTGlERCzoCwGUeFBjeLlAJDmVPabUEijQ5YNHODGMe7fhWZquLkaf7q2oe1t_ebjZDi21b2q-xgm1XSSvjSQ9ibCHxO4OJFYLLSPDPn4RykipSOIKrd45juoCITLuyywf_OPdiQibzmTQYBZ0tpbsSaKahhHFDEMJPXnrNyX2KofV02NIDw3lp7U4gq0YAgho7Hw
+        #      - eyJhbGciOiJSUzI1NiIsImtpZCI6IlUzTTRNMDlPTUZGaGNuTnJVbGhyVkU5ckxVOUpWMGwxVHpSaExXVjZVV1l4VlZOaE1UZzRVbWRxT0EifQ.eyJpYXQiOiAxNzMzNDEwMTQyLCAiaWQiOiAiaHR0cDovL2RjNGV1LmV4YW1wbGUuY29tL0VISUNDcmVkZW50aWFsL3NlIiwgInN1YiI6ICJodHRwczovL3Rlcm1pbmF0b3IxNC50cmFucXVpbGxpdHkuc2UiLCAiZXhwIjogMTczNjAwMjE0MiwgImlzcyI6ICJodHRwczovL29wZW5pZGZlZC10ZXN0LTEuc3VuZXQuc2U6NjAwMSJ9.dTkJY2TU49Nk_LGa4kvGdHbbGaPtCEIzG5YTC8Ghcy1ID4AFAAhUeourZ7xKROKcdit7TbB3UcEKhZb9MNqb14ay63c6h1TQfgJbPM6et4WX9GRWiEW21lm_v-EHZQbF_e9wzFxdbV5C5eRGoULz-7Tx-oSj-79ubMEo6D11MiOWd3csPNT2HlwaaXrBzANsk1G_x37-Titcu5YwC4wycGdRgqogGbJEiyFrLHtr20GsGk3gDIhet1BJpBFUbFbY6DgdyZzAslsfHMO4Uy40iHkDi9IJY-XhkCVx2q2Hb_HKBNBFlE2xIQk8tGC9qxBlzvO5qPrPwSIhSNWKDJnxvg
+      - eyJhbGciOiJSUzI1NiIsImtpZCI6IlUzazNhRkpvYmpOQllWaEpMVzV6WjJRMlkwdHlaRkZ6UTB4NGNYRk1TR1V6U0VoVFVYbHlNV0ZUT0EifQ.eyJpYXQiOiAxNzMzNDcyMDM5LCAiaWQiOiAiaHR0cDovL2RjNGV1LmV4YW1wbGUuY29tL0VISUNDcmVkZW50aWFsL3NlIiwgInN1YiI6ICJodHRwczovL3Rlcm1pbmF0b3IxNC50cmFucXVpbGxpdHkuc2UiLCAiZXhwIjogMTczNjA2NDAzOSwgImlzcyI6ICJodHRwczovL29wZW5pZGZlZC1kZXYtMS5zdW5ldC5zZTo2MDAxIn0.TT_F6x1LCEknbqtkPSvIYT62HmqcY0vMWoGKBIYUfsEOvKJAFnNRXiaLh-9-3fz2g2PEwJ2j9oKiblCVrax7EzdatLMK24f0WUyJbHyRoXBXML72tSu0seFUMwSRHu7cNtNB-7tDIkAjIqIf-CKAkP_a88VzMGkmVLy1F4VpmZYd9GltaEme2fdqWwgbjGjWXZOOmyrN3Y6i_U4O-h5khgoN1_dxznQRNUZTnAj1ks5Q6TSDDWrJVMPOyGeS5svddjexzR818v0FvcW5XHm51J-4w2M3S2vupkb28o7PsBLkD95a9LFFsiSWM_Eb2Bs0hK25OHWcfrcXTpCojll87g
+      - eyJhbGciOiJSUzI1NiIsImtpZCI6IlUzazNhRkpvYmpOQllWaEpMVzV6WjJRMlkwdHlaRkZ6UTB4NGNYRk1TR1V6U0VoVFVYbHlNV0ZUT0EifQ.eyJpYXQiOiAxNzMzNDcyMTE4LCAiaWQiOiAiaHR0cDovL2RjNGV1LmV4YW1wbGUuY29tL1BEQTFDcmVkZW50aWFsL3NlIiwgInN1YiI6ICJodHRwczovL3Rlcm1pbmF0b3IxNC50cmFucXVpbGxpdHkuc2UiLCAiZXhwIjogMTczNjA2NDExOCwgImlzcyI6ICJodHRwczovL29wZW5pZGZlZC1kZXYtMS5zdW5ldC5zZTo2MDAxIn0.KrXaxDSrY7AxMr2G2bYrQzgdcbvMI2ZyWOjPRhSmvgbkfTlilpfSKdyOXmJrLhB346bRFNwCwr9ztEu6djjoN9AfiFUgNUjTQyjHgxbCbm4vohPHUE8wiyIURBlpGmuV08qny-fuHgRnID2GaF5KtF4wp9UO4yJ6RtpvcJIF5gjgZbHcj_LMe2CgE0zmjgYfn4CvNgmBSdMWJpTBIRpM0wGWLaDSWLz5Bs-B8tayZmI14PFdd1efxSANYk8tWzZI0R2rgfwgrLZ8AVhX4_BRMzcfoLvhFJzcQDLYX_fNqB1RP5SsGK12Kb7NmvTnC8xYdcXJ-XuxXtgadzn95hrhAg
       endpoints:
         entity_configuration:
           path: ".well-known/openid-federation"
           class: fedservice.entity.server.entity_configuration.EntityConfiguration
       trust_anchors:
-        https://openidfed-test-1.sunet.se:7001:
+        https://openidfed-dev-1.sunet.se:7001:
           keys:
           - kty: RSA
             use: sig
-            kid: UFpoajluZU42dTNUUXo5RnhBVEJnRk9JY2NtU1JKdlVYUk1RUFRyVkFFRQ
+            kid: QjZ1N2RFTFFST0ZvMWs2NFpiakxCeFV5dGVURjFIWThuUVB3RjRMc0Frdw
             e: AQAB
-            "n": p9S2whcSjmBdxerp80tIJreUUmZiGNGXIocJlNjx9pgD5_WD2l6mBNuEZMpP-QUB_TSV3VesNiqmOdydGp1wkfQ-NmVdoso29FjEdgrckLIwirAVmVQ6bGQQnXJrR56mRz0QqENi11vVpbDj6hsprxK1EZBQL-sQ2kem289B_BCNT-NvwVHrYJlaQA32z7cs1a7W8wt9eLxA10PeiYMgDVU_69wKBw4YrjjozOHKMRGchUQEjQhfSZfk49bip_5TNz4dmBmSCIbdE2yilFrfRSNrh7q2myuyDE3k2QZbSOXXGGT1LtHO74WIY58v-M3A7_zxp0f2Eo9ZD3N4h-InIw
+            "n": hrRAHgzRjUhtHyaaSSruD9Ie89P1FEuhuHviHPSpltHYY7pF5T92tmQUEHCOo0bXmBtvgpCFRxv6SaUHPnex_eUEMPdHsOPMumLtdhciT81ikKpw6Qmfx2EmZ5BbWqeZF0MC5LKiipgN5jQL_WbrkRCVhEfXwMJmnjJNIA3AG94rHOA9b5aXV5EZ7YaiWMJZaOkmRZ1u8O6SoQZW630b4coDAcwsKNoNxUsfqCglsSkX-gs9DAxRfMC9jhO_W1htczxtgjHoQ_wh-fAbI4uJafLj_6FlWIh0C0igewjU8DRQsm2Y0pqWP8ERqKeRx_AQxlzXLd9XIUNXKdTbs0ro-Q
           - kty: EC
             use: sig
-            kid: Nm82cTJKMDkydXhxOUMtTm0teFpMWlZiR0ZVa2U3YVVtbkJTV3hBd3FqOA
+            kid: TjJWS282a3pZSEFhM0IzN05lMmQ4XzdCTldJN2MyVkdzd3FDYktRT2I0Yw
             crv: P-256
-            x: 69XlQkKYfWJDXAv_Vbrqyfz9gfAhu1qQ4mtLde18-Cg
-            "y": ntBwdhy4_cS2PRBS-xdKkNwcO1yQP8TdoOHbHN9Yjv8
+            x: WhSm-S0uLFeh-cAr2Nqp0H0tpG9dyOlbP-sLGa8VYM4
+            "y": 06vDA3rcbfq2aN1KGyZCM1zQ-fuGqUdN6ibFTrCawmY
       httpc_params:
         verify: false
       entity_type:
