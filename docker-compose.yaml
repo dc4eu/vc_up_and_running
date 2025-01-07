@@ -106,7 +106,7 @@ services:
   simplesamlphp:
     image: "${DOCKERHUB_FQDN}/swamid/simplesamlphp"
     container_name: simplesamlphp
-    hostname: "terminator14.tranquillity.se"
+    hostname: ${ISSUER_HOSTNAME}
     restart: always
     expose:
       - "8443"
