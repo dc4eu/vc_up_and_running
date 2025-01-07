@@ -31,6 +31,8 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
     cp simplesamlphp/samlcert/saml_metadata.pem satosa/
 fi
+source .env
+sed -i s/ISSUER_HOSTNAME/${ISSUER_HOSTNAME}/g satosa/plugins/saml2_backend.yaml
 
 if [ ! -e satosa/metadata/backend.xml ]; then
     printf "Configuring satosa and simplesamlphp in the correct order.\n"
