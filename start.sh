@@ -33,6 +33,7 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
 fi
 source .env
 sed -i s/ISSUER_HOSTNAME/${ISSUER_HOSTNAME}/g satosa/plugins/saml2_backend.yaml
+sed -i s/ISSUER_FQDN/${ISSUER_FQDN}/g config.yaml
 
 if [ ! -e satosa/metadata/backend.xml ]; then
     printf "Configuring satosa and simplesamlphp in the correct order.\n"

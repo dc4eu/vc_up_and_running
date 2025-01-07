@@ -9,7 +9,7 @@
       timeout: 10
     qr:
       base_url: "https://deutsche-rentenversicherung.de"
-      issuing_base_url: ${ISSUER_FQDN}
+      issuing_base_url: ISSUER_FQDN
       recovery_level: 2
       size: 256
   
