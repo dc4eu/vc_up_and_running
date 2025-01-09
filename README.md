@@ -14,7 +14,7 @@ It distribute messages to other services within VC-service infrastructure.
 Datastore acts as an integration point, since this should be as generic as possible and any specific integrations are not desirable. The Authentic-Source can upload its document (ie. PDA1, EHIC, etc..) along with metadata. 
 
 ### Issuer
-Issuer issues a credential based on document in Datastore or Authentic-Source, focus right now is SDJWT (https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/).
+Issuer issues a credential based on document in Datastore or Authentic-Source, focus right now is SDJWT (https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/). This is implemented as a plugin for satosa. 
 
 ### Persistent
 Persistent service store persistent data, for example authentic source document into mongodb.
@@ -41,11 +41,16 @@ VC is using semver with `latest` pointing to the latest number tag (ie. 0.5.4)
 
 ## Use it!
 
+Change values in .env to suit your environment. ISSUER_HOSTNAME will need to be a publicly accessible hostname and have a valid certificate. 
+
+Place cert.pem and privkey.pem in simplesamlphp/webcert/ for simplesamlphp
+and https.crt and https.key in certs/ for satosa. It can be the same certificate.
+
 ### Start
-`./start.sh` or `docker-compose -f docker-compose.yaml up -d --remove-orphans`
+`./start.sh` 
 
 ### Stop
-`./stop` or `docker-compose -f docker-compose.yaml rm -s -f`
+`./stop` 
 
 ## API 
 
