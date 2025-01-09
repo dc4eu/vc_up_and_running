@@ -53,7 +53,7 @@ and https.crt and https.key in certs/ for satosa. It can be the same certificate
 `./stop` 
 
 ### Joining the federation
-See separate instructions [here](Joining the federation.md)
+See separate instructions [here](Joining%20the%20federation.md)
 ## API 
 
 ### Swagger Specification
