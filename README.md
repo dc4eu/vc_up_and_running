@@ -54,6 +54,7 @@ and https.crt and https.key in certs/ for satosa. It can be the same certificate
 
 ### Joining the federation
 See separate instructions [here](Joining%20the%20federation.md)
+For more detailed instruction see [https://wiki.federationer.internetstiftelsen.se/display/dc4eu](https://wiki.federationer.internetstiftelsen.se/display/dc4eu).
 ## API 
 
 ### Swagger Specification
