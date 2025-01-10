@@ -7,9 +7,9 @@ services:
     depends_on:
       - simplesamlphp
     expose:
-      - 1443
+      - 443
     ports:
-      - "1443:8000"
+      - "443:8000"
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
@@ -26,7 +26,7 @@ services:
     expose:
       - "8443"
     ports:
-      - "8443:443"
+      - "8443:8443"
     volumes:
       - "./simplesamlphp/apache2.conf:/etc/apache2/sites-enabled/ssp.conf:ro"
       - "./simplesamlphp/authsources.php:/var/simplesamlphp/config/authsources.php:ro"
