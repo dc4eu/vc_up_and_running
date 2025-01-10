@@ -28,6 +28,7 @@ services:
     ports:
       - "8443:8443"
     volumes:
+      - "./simplesamlphp/ports.conf:/etc/apache2/ports.conf:ro"
       - "./simplesamlphp/apache2.conf:/etc/apache2/sites-enabled/ssp.conf:ro"
       - "./simplesamlphp/authsources.php:/var/simplesamlphp/config/authsources.php:ro"
       - "./simplesamlphp/config-bootstrap.php:/var/simplesamlphp/config/config.php:ro"
