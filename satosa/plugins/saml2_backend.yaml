@@ -13,7 +13,7 @@ config:
     allow_unknown_attributes: true
     metadata:
       remote:
-        - url: https://simplesamlphp/simplesaml/saml2/idp/metadata.php
+        - url: https://ISSUER_HOSTNAME/simplesaml/saml2/idp/metadata.php
           freshness_period: "PT12H"
     entityid: https://satosa-issuer/sp
     accepted_time_diff: 180

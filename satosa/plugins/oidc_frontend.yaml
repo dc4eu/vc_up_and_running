@@ -4,7 +4,7 @@ name: oidc-front
 config:
   domain: localhost
   server_name: localhost
-  base_url: !ENV BASE
+  base_url: <base_url>
   storage:
     class: satosa_oidcop.core.storage.file.FilesystemDBNoCache
     kwargs:
@@ -15,7 +15,7 @@ config:
   salt_size: 8
   op:
     server_info:
-      entity_id: !ENV BASE
+      entity_id: <base_url>
       persistence:
         class: satosa_idpyop.persistence.federation_entity.FEPersistence
         kwargs:
