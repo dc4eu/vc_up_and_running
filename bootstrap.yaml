@@ -13,6 +13,7 @@ services:
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
+      - "BASE=${ISSUER_FQDN}"
     volumes:
       - ${PWD}/satosa:/etc/satosa
       - ${PWD}/certs:/etc/dehydrated
