@@ -48,4 +48,8 @@ if [ ! -e satosa/metadata/backend.xml ]; then
     docker compose -f bootstrap.yaml down
 fi
 printf "Starting vc docker-compose services\n"
-docker compose -f docker-compose.yaml up -d --remove-orphans
+if [ "$1" == "testmode" ]; then
+    docker compose -f docker-compose.yaml --env-file .env-test up -d --remove-orphans
+else
+    docker compose -f docker-compose.yaml up -d --remove-orphans
+fi
