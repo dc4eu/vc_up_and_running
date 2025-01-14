@@ -30,6 +30,13 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     [ -d simplesamlphp/samlcert ] || mkdir simplesamlphp/samlcert
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
     cp simplesamlphp/samlcert/saml_metadata.pem satosa/
+
+    docker compose run --rm \
+    --entrypoint /bin/bash \
+    -v "$(pwd)/simplesamlphp/samlcert:/var/simplesamlphp/samlcert" \
+    simplesamlphp \
+    -c "chgrp www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" && \
+    echo 'Group changed to www-data successfully!'
 fi
 source .env
 sed -i s/ISSUER_HOSTNAME/${ISSUER_HOSTNAME}/g satosa/plugins/saml2_backend.yaml
