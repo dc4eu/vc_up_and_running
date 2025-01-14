@@ -362,6 +362,7 @@ config:
                           display:
                             - locale: en-US
                               name: Birth date
+                          mandatory: true
               keys:
                 key_defs:
                 - type: RSA
