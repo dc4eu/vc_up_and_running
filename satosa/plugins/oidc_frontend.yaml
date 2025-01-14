@@ -112,12 +112,14 @@ config:
                     crypt_conf:
                       kwargs:
                         keys:
+                          private_path: private/token_sid_jwks.json
+                          read_only: false
                           key_defs:
-                          - type: OCT
+                          - type: oct
                             use:
                             - enc
                             kid: password
-                          - type: OCT
+                          - type: oct
                             use:
                             - enc
                             kid: salt
