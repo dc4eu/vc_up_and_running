@@ -363,7 +363,7 @@ config:
                         birth_date:
                           display:
                             - locale: en-US
-                              name: Birth date
+                              name: Birth Date
                           mandatory: true
               keys:
                 key_defs:
