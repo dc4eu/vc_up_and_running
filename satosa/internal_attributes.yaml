@@ -31,4 +31,9 @@ attributes:
     - eduPersonScopedAffiliation
     openid:
     - scoped-affiliation
+  birth_date:
+    saml:
+    - schacDateOfBirth
+    openid:
+    - birth_date
 
