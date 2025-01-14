@@ -14,6 +14,7 @@ if [ ! -e satosa/backend.key ]; then
     printf "Create satosa saml2 backend certificates.\n"
     openssl req -x509 -newkey rsa:4096 -keyout satosa/backend.key -out satosa/backend.crt -sha256 -days 3650 -nodes -subj "/CN=satosa-issuer" -addext "subjectAltName=DNS:satosa-issuer"
 fi
+
 if [ ! -e satosa/metadata.key ]; then
     printf "Create satosa saml2 metadata sign certificates.\n"
     openssl req -x509 -newkey rsa:4096 -keyout satosa/metadata.key -out satosa/metadata.crt -sha256 -days 3650 -nodes -subj "/CN=satosa-issuer" -addext "subjectAltName=DNS:satosa-issuer"
@@ -25,6 +26,7 @@ if [ ! -e simplesamlphp/webcert/privkey.pem ]; then
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/webcert/privkey.pem -out simplesamlphp/webcert/cert.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
     cp simplesamlphp/webcert/cert.pem satosa/simplesaml_webcert.pem
 fi
+
 if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     printf "Create simplesamlphp saml certificates.\n"
     [ -d simplesamlphp/samlcert ] || mkdir simplesamlphp/samlcert
@@ -42,8 +44,12 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
 fi
 
 source .env
-sed -i s/ISSUER_HOSTNAME/${ISSUER_HOSTNAME}/g satosa/plugins/saml2_backend.yaml
-sed -i s#ISSUER_FQDN#${ISSUER_FQDN}#g config.yaml
+printf "Generating config.\n"
+sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
+sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml > satosa/plugins/oidc_frontend.yaml
+sed -e "s|%SAML_MD_URL%|${SAML_MD_URL}|g" \
+    -e "s|%SAML_DS_URL%|${SAML_DS_URL}|g" \
+    bootstrap_files/template_saml2_backend.yaml > satosa/plugins/saml2_backend.yaml
 
 if [ ! -e satosa/metadata/backend.xml ]; then
     printf "Extracting SAML metadata from SATOSA for SimpleSAMLphp configuration.\n"
@@ -56,8 +62,6 @@ if [ ! -e satosa/metadata/backend.xml ]; then
         --entrypoint satosa-saml-metadata satosa --no-sign --dir metadata /etc/satosa/proxy_conf.yaml
     cp satosa/metadata/backend.xml simplesamlphp/satosa-issuer.xml
 fi
-
-
 
 printf "Starting vc docker-compose services\n"
 docker compose -f docker-compose.yaml up -d --remove-orphans

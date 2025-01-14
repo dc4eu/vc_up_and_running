@@ -9,7 +9,7 @@
       timeout: 10
     qr:
       base_url: "https://deutsche-rentenversicherung.de"
-      issuing_base_url: ISSUER_FQDN
+      issuing_base_url: %ISSUER_URL%
       recovery_level: 2
       size: 256
   
@@ -38,7 +38,7 @@
       addr: vc_issuer:8090
     signing_key_path: "/private_ec256.pem"
     jwt_attribute:
-      issuer:  https://issuer.sunet.se
+      issuer:  %ISSUER_URL%
       enable_not_before: true
       valid_duration: 3600
       verifiable_credential_type: "https://credential.sunet.se/identity_credential"

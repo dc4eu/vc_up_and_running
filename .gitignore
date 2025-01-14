@@ -1,10 +1,13 @@
 log/*
 !log/.gitkeep
+config.yaml
 satosa/backend.*
 satosa/metadata.*
 satosa/metadata/backend.xml
 satosa/fe_storage/
 satosa/op_storage/
+satosa/plugins/saml2_backend.yaml
+satosa/plugins/oidc_frontend.yaml
 satosa/private/
 satosa/public/
 satosa/simplesaml_webcert.pem

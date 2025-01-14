@@ -13,7 +13,7 @@ config:
     allow_unknown_attributes: true
     metadata:
       remote:
-        - url: https://ISSUER_HOSTNAME:8443/simplesaml/saml2/idp/metadata.php
+        - url: %SAML_MD_URL%
           freshness_period: "PT12H"
     entityid: https://satosa-issuer/sp
     accepted_time_diff: 180
@@ -35,7 +35,7 @@ config:
         want_assertions_signed: false
         want_assertions_or_response_signed: true
     xmlsec_binary: "/usr/bin/xmlsec1"
-  disco_srv: https://ds.qa.swamid.se/ds/
+  disco_srv: %SAML_DS_URL%
   attribute_profile: saml
 module: satosa.backends.saml2.SAMLBackend
 name: Saml2SP
