@@ -97,7 +97,7 @@ services:
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
-      - "BASE=${ISSUER_FQDN}"
+      - "BASE=${ISSUER_URL}"
     volumes:
       - ${PWD}/satosa:/etc/satosa
       - ${PWD}/certs/https.crt:/etc/satosa/https.crt
