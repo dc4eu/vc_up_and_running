@@ -96,9 +96,9 @@ services:
     depends_on:
       - simplesamlphp
     expose:
-      - 443
+      - 8000
     ports:
-      - "443:8000"
+      - "8000:8000"
     environment:
       - "METADATA_DIR=/etc/satosa/metadata"
       - "WORKER_TIMEOUT=120"
