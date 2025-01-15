@@ -31,6 +31,8 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
     cp simplesamlphp/samlcert/saml_metadata.pem satosa/
 
+    # Create an empty placeholder file to prevent Docker from mounting it as a directory
+    touch simplesamlphp/satosa-issuer.xml
     docker compose run --rm \
     --entrypoint /bin/bash \
     -v "$(pwd)/simplesamlphp/samlcert:/var/simplesamlphp/samlcert" \
@@ -38,21 +40,24 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     -c "chgrp www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" && \
     echo 'Group changed to www-data successfully!'
 fi
+
 source .env
 sed -i s/ISSUER_HOSTNAME/${ISSUER_HOSTNAME}/g satosa/plugins/saml2_backend.yaml
 sed -i s#ISSUER_FQDN#${ISSUER_FQDN}#g config.yaml
 
 if [ ! -e satosa/metadata/backend.xml ]; then
-    printf "Configuring satosa and simplesamlphp in the correct order.\n"
-    docker compose -f bootstrap.yaml up -d --wait
-    printf "Waiting for backend.xml to be generated."
-    while [ ! -f satosa/metadata/backend.xml ]; do
-        printf "."
-        sleep 1
-    done
-    printf " Done\n"
+    printf "Extracting SAML metadata from SATOSA for SimpleSAMLphp configuration.\n"
+    mkdir -p satosa/metadata
+    docker compose run --no-deps --rm \
+        -w /etc/satosa \
+        -v $(pwd)/bootstrap_files/dummy_md.xml:/tmp/dummy_md.xml \
+        -v $(pwd)/bootstrap_files/dummy_saml2_backend.yaml:/etc/satosa/plugins/saml2_backend.yaml \
+        -v $(pwd)/bootstrap_files/dummy_oidc_frontend.yaml:/etc/satosa/plugins/oidc_frontend.yaml \
+        --entrypoint satosa-saml-metadata satosa --no-sign --dir metadata /etc/satosa/proxy_conf.yaml
     cp satosa/metadata/backend.xml simplesamlphp/satosa-issuer.xml
-    docker compose -f bootstrap.yaml down
 fi
+
+
+
 printf "Starting vc docker-compose services\n"
 docker compose -f docker-compose.yaml up -d --remove-orphans
