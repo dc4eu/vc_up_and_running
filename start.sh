@@ -52,11 +52,10 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     --entrypoint /bin/bash \
     -v "$(pwd)/simplesamlphp/samlcert:/var/simplesamlphp/samlcert" \
     simplesamlphp \
-    -c "chgrp www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" && \
-    echo 'Group changed to www-data successfully!'
+    -c "chown www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" && \
+    echo 'User ownership changed to www-data successfully!'
 fi
 
-source .env
 printf "Generating config.\n"
 sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
 sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml > satosa/plugins/oidc_frontend.yaml
