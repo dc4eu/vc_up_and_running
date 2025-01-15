@@ -97,6 +97,7 @@ $config = [
         'swamid' => true,
         'saml' => true,
         'entitycategories' => true,
+        'statistics' => true,
     ],
 
     'session.duration' => 8 * (60 * 60), // 8 hours.
@@ -159,12 +160,12 @@ $config = [
     'authproc.idp' => [
         10 => [
             'class' => 'core:AttributeMap',
-            'name2oid'
+            'name2oid',
         ],
         30 => 'core:LanguageAdaptor',
 
         45 => [
-            'class'         => 'core:StatisticsWithAttribute',
+            'class'         => 'statistics:StatisticsWithAttribute',
             'attributename' => 'realm',
             'type'          => 'saml20-idp-SSO',
         ],
