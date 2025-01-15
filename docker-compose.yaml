@@ -17,6 +17,11 @@ services:
       - issuer
     environment:
       - "VC_CONFIG_YAML=config.yaml"
+    networks:
+      default:
+      dc4eu_shared_network:
+        aliases:
+          - "${APIGW_HOST}"
 
   issuer:
     container_name: "vc_issuer"
@@ -102,11 +107,16 @@ services:
       - ${PWD}/satosa:/etc/satosa
       - ${PWD}/certs/https.crt:/etc/satosa/https.crt
       - ${PWD}/certs/https.key:/etc/satosa/https.key
+    networks:
+      default:
+      dc4eu_shared_network:
+        aliases:
+          - "${ISSUER_HOST}"
 
   simplesamlphp:
     image: "${DOCKERHUB_FQDN}/swamid/simplesamlphp"
     container_name: simplesamlphp
-    hostname: ${ISSUER_HOSTNAME}
+    hostname: ${SAML_IDP_HOST}
     restart: always
     expose:
       - "8443"
@@ -121,5 +131,17 @@ services:
       - "./simplesamlphp/webcert:/certs:ro"
       - "./simplesamlphp/saml20-idp-hosted.php:/var/simplesamlphp/metadata/saml20-idp-hosted.php:ro"
       - "./simplesamlphp/satosa-issuer.xml:/var/simplesamlphp/metadata/satosa-issuer.xml:ro"
+    networks:
+      default:
+      dc4eu_shared_network:
+        aliases:
+          - "${SAML_IDP_HOST}"
+
+networks:
+  default:
+  dc4eu_shared_network:
+    name: ${NETWORK_NAME}
+    external: true
+
 volumes:
   mongo_data:

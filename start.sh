@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 set -eo pipefail
+source .env
+
+if docker network ls | grep -q "$NETWORK_NAME"; then
+  echo "Network '$NETWORK_NAME' already exists."
+else
+  docker network create "$NETWORK_NAME"
+  if [ $? -eq 0 ]; then
+    echo "Network '$NETWORK_NAME' created successfully."
+  else
+    echo "Failed to create network '$NETWORK_NAME'."
+    exit 1
+  fi
+fi
 
 if [ ! -e private_ec256.pem ]; then
     printf "Create signing key\n"
