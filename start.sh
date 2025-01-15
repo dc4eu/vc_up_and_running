@@ -25,25 +25,25 @@ fi
 
 if [ ! -e satosa/backend.key ]; then
     printf "Create satosa saml2 backend certificates.\n"
-    openssl req -x509 -newkey rsa:4096 -keyout satosa/backend.key -out satosa/backend.crt -sha256 -days 3650 -nodes -subj "/CN=satosa-issuer" -addext "subjectAltName=DNS:satosa-issuer"
+    openssl req -x509 -newkey rsa:4096 -keyout satosa/backend.key -out satosa/backend.crt -sha256 -days 3650 -nodes --subj "/CN=DC4EU Interop Lab SAML SP Signer" -addext "subjectAltName=DNS:${ISSUER_HOST}"
 fi
 
 if [ ! -e satosa/metadata.key ]; then
     printf "Create satosa saml2 metadata sign certificates.\n"
-    openssl req -x509 -newkey rsa:4096 -keyout satosa/metadata.key -out satosa/metadata.crt -sha256 -days 3650 -nodes -subj "/CN=satosa-issuer" -addext "subjectAltName=DNS:satosa-issuer"
+    openssl req -x509 -newkey rsa:4096 -keyout satosa/metadata.key -out satosa/metadata.crt -sha256 -days 3650 -nodes -subj "/CN=DC4EU Interop Lab SAML SP MD Signer" -addext "subjectAltName=DNS:${ISSUER_HOST}"
 fi
 
 if [ ! -e simplesamlphp/webcert/privkey.pem ]; then
     printf "Create simplesamlphp web certificates.\n"
     [ -d simplesamlphp/webcert ] || mkdir simplesamlphp/webcert
-    openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/webcert/privkey.pem -out simplesamlphp/webcert/cert.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
+    openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/webcert/privkey.pem -out simplesamlphp/webcert/cert.pem -sha256 -days 3650 -nodes -subj "/CN=${SAML_IDP_HOST}" -addext "subjectAltName=DNS:${SAML_IDP_HOST}"
     cp simplesamlphp/webcert/cert.pem satosa/simplesaml_webcert.pem
 fi
 
 if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     printf "Create simplesamlphp saml certificates.\n"
     [ -d simplesamlphp/samlcert ] || mkdir simplesamlphp/samlcert
-    openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=simplesamlphp" -addext "subjectAltName=DNS:simplesamlphp"
+    openssl req -x509 -newkey rsa:4096 -keyout simplesamlphp/samlcert/saml_metadata.key -out simplesamlphp/samlcert/saml_metadata.pem -sha256 -days 3650 -nodes -subj "/CN=DC4EU Interop Lab SAML IDP Signer" -addext "subjectAltName=DNS:${SAML_IDP_HOST}"
     cp simplesamlphp/samlcert/saml_metadata.pem satosa/
 
     # Create an empty placeholder file to prevent Docker from mounting it as a directory
