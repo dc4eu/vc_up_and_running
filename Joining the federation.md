@@ -13,7 +13,7 @@ Dowload trust_anchor.json (Text box on bottom) from [https://wiki.sunet.se/displ
 On Satosa, copy satosa/public/pid_fed_keys.json from satosa and change corresponding parts in the document below:
     
     {
-      "issuer.example.com: {
+      "https://issuer.example.com: {
          "entity_types": [
           "federation_entity",
           "openid_credential_issuer",
