@@ -4,6 +4,8 @@ After setting up the issuer with public certificated and being able to communitc
 Dowload trust_anchor.json (Text box on bottom) from [https://wiki.sunet.se/display/Projekt/EUDIW+pilot+setup](https://wiki.sunet.se/display/Projekt/EUDIW+pilot+setup)
 
 ```docker run --rm -i -v .:/workdir --entrypoint python3 docker.sunet.se/fedservice:latest fedservice/dc4eu_federation/convert_json_to_yaml.py workdir/trust_anchor.json ```
+
+
     in satosa/plugins/oidc_frontend.yaml:
 
     config:             
