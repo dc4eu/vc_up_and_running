@@ -10,6 +10,7 @@ satosa/plugins/saml2_backend.yaml
 satosa/plugins/oidc_frontend.yaml
 satosa/private/
 satosa/public/
+satosa/saml_metadata.pem
 satosa/simplesaml_webcert.pem
 private_ec256.pem
 public_ec256.pem
