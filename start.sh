@@ -56,12 +56,28 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     echo 'User ownership changed to www-data successfully!'
 fi
 
-printf "Generating config.\n"
-sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
-sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml > satosa/plugins/oidc_frontend.yaml
-sed -e "s|%SAML_MD_URL%|${SAML_MD_URL}|g" \
+if [ ! -e config.yaml ]; then
+  sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
+  echo "Generated config.yaml"
+else
+    echo "config.yaml already exists, skipping regeneration."
+fi
+
+if [ ! -e satosa/plugins/oidc_frontend.yaml ]; then
+  sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml > satosa/plugins/oidc_frontend.yaml
+  echo "Generated satosa/plugins/oidc_frontend.yaml"
+else
+    echo "satosa/plugins/oidc_frontend.yaml already exists, skipping regeneration."
+fi
+
+if [ ! -e satosa/plugins/saml2_backend.yaml ]; then
+  sed -e "s|%SAML_MD_URL%|${SAML_MD_URL}|g" \
     -e "s|%SAML_DS_URL%|${SAML_DS_URL}|g" \
     bootstrap_files/template_saml2_backend.yaml > satosa/plugins/saml2_backend.yaml
+  echo "Generated satosa/plugins/saml2_backend.yaml"
+else
+    echo "satosa/plugins/saml2_backend.yaml already exists, skipping regeneration."
+fi
 
 if [ ! -e satosa/metadata/backend.xml ]; then
     printf "Extracting SAML metadata from SATOSA for SimpleSAMLphp configuration.\n"
