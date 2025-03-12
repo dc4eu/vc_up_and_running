@@ -67,6 +67,20 @@ services:
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
+  ui:
+    container_name: "vc_ui"
+    image: docker.sunet.se/dc4eu/ui:${TAG}
+    restart: always
+    volumes:
+      - ${PWF}/config.yaml:/config.yaml:ro
+      - ${PWD}/private_ec256.pem:/private_ec256.pem:ro
+    depends_on:
+      - apigw
+      - mockas
+      - verifier
+    environment:
+      - "VC_CONFIG_YAML=config.yaml"
+
   mongo:
     image: mongo:4.0.10
     container_name: "vc_mongo"
