@@ -58,6 +58,7 @@ fi
 
 if [ ! -e config.yaml ]; then
   sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
+  sed "s|%CREDENTIAL_OFFER_URL%|${CREDENTIAL_OFFER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
   echo "Generated config.yaml"
 else
     echo "config.yaml already exists, skipping regeneration."

@@ -8,8 +8,6 @@
       type: jaeger
       timeout: 10
     qr:
-      base_url: "https://deutsche-rentenversicherung.de"
-      issuing_base_url: %ISSUER_URL%
       recovery_level: 2
       size: 256
   
@@ -34,6 +32,8 @@
     identifier: "SUNET_v1"
     api_server:
       addr: :8080
+    issuer_url: %ISSUER_URL%
+    credential_offer_url: %CREDENTIAL_OFFER_URL%
     grpc_server:
       addr: vc_issuer:8090
     signing_key_path: "/private_ec256.pem"
