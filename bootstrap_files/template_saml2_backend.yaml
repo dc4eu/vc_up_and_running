@@ -34,6 +34,7 @@ config:
         want_response_signed: false
         want_assertions_signed: false
         want_assertions_or_response_signed: true
+        force_authn: true
     xmlsec_binary: "/usr/bin/xmlsec1"
   disco_srv: %SAML_DS_URL%
   attribute_profile: saml
