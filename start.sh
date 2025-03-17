@@ -3,15 +3,15 @@ set -eo pipefail
 source .env
 
 if docker network ls | grep -q "$NETWORK_NAME"; then
-  echo "Network '$NETWORK_NAME' already exists."
+    echo "Network '$NETWORK_NAME' already exists."
 else
-  docker network create "$NETWORK_NAME"
-  if [ $? -eq 0 ]; then
-    echo "Network '$NETWORK_NAME' created successfully."
-  else
-    echo "Failed to create network '$NETWORK_NAME'."
-    exit 1
-  fi
+    docker network create "$NETWORK_NAME"
+    if [ $? -eq 0 ]; then
+        echo "Network '$NETWORK_NAME' created successfully."
+    else
+        echo "Failed to create network '$NETWORK_NAME'."
+        exit 1
+    fi
 fi
 
 if [ ! -e private_ec256.pem ]; then
@@ -49,33 +49,34 @@ if [ ! -e simplesamlphp/samlcert/saml_metadata.key ]; then
     # Create an empty placeholder file to prevent Docker from mounting it as a directory
     touch simplesamlphp/satosa-issuer.xml
     docker compose run --rm \
-    --entrypoint /bin/bash \
-    -v "$(pwd)/simplesamlphp/samlcert:/var/simplesamlphp/samlcert" \
-    simplesamlphp \
-    -c "chown www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" && \
-    echo 'User ownership changed to www-data successfully!'
+        --entrypoint /bin/bash \
+        -v "$(pwd)/simplesamlphp/samlcert:/var/simplesamlphp/samlcert" \
+        simplesamlphp \
+        -c "chown www-data /var/simplesamlphp/samlcert/saml_metadata.key && ls -l /var/simplesamlphp/samlcert/saml_metadata.key" &&
+        echo 'User ownership changed to www-data successfully!'
 fi
 
 if [ ! -e config.yaml ]; then
-  sed "s|%ISSUER_URL%|${ISSUER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
-  sed "s|%CREDENTIAL_OFFER_URL%|${CREDENTIAL_OFFER_URL}|g" bootstrap_files/template_config.yaml > config.yaml
-  echo "Generated config.yaml"
+    sed -e "s|%ISSUER_URL%|${ISSUER_URL}|g" \
+        -e "s|%CREDENTIAL_OFFER_URL%|${CREDENTIAL_OFFER_URL}|g" \
+        bootstrap_files/template_config.yaml >config.yaml
+    echo "Generated config.yaml"
 else
     echo "config.yaml already exists, skipping regeneration."
 fi
 
 if [ ! -e satosa/plugins/oidc_frontend.yaml ]; then
-  sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml > satosa/plugins/oidc_frontend.yaml
-  echo "Generated satosa/plugins/oidc_frontend.yaml"
+    sed "s|%APIGW_URL%|${APIGW_URL}|g" bootstrap_files/template_oidc_frontend.yaml >satosa/plugins/oidc_frontend.yaml
+    echo "Generated satosa/plugins/oidc_frontend.yaml"
 else
     echo "satosa/plugins/oidc_frontend.yaml already exists, skipping regeneration."
 fi
 
 if [ ! -e satosa/plugins/saml2_backend.yaml ]; then
-  sed -e "s|%SAML_MD_URL%|${SAML_MD_URL}|g" \
-    -e "s|%SAML_DS_URL%|${SAML_DS_URL}|g" \
-    bootstrap_files/template_saml2_backend.yaml > satosa/plugins/saml2_backend.yaml
-  echo "Generated satosa/plugins/saml2_backend.yaml"
+    sed -e "s|%SAML_MD_URL%|${SAML_MD_URL}|g" \
+        -e "s|%SAML_DS_URL%|${SAML_DS_URL}|g" \
+        bootstrap_files/template_saml2_backend.yaml >satosa/plugins/saml2_backend.yaml
+    echo "Generated satosa/plugins/saml2_backend.yaml"
 else
     echo "satosa/plugins/saml2_backend.yaml already exists, skipping regeneration."
 fi
