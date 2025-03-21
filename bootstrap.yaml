@@ -1,7 +1,7 @@
 ---
 services:
   satosa:
-    image: "${DOCKERHUB_FQDN}/satosa:wallet"
+    image: "${DOCKERHUB_FQDN}/euwallet-satosa:branch-stable"
     container_name: satosa-issuer
     restart: always
     depends_on:
