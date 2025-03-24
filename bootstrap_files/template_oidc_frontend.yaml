@@ -267,7 +267,7 @@ config:
                   storage:
                     class: satosa_idpyop.core.storage.file.FilesystemDBNoCache
                     kwargs:
-                      fdir: op_storage
+                      fdir: oic_storage
                       key_conv: idpyoidc.util.Base64
                       value_conv: idpyoidc.util.JSON
               userinfo:
@@ -335,36 +335,66 @@ config:
                     format: vc+sd-jwt
                     id: eudiw.ehic.se
                     cryptographic_binding_methods_supported:
-                      - jwk
+                    - jwk
                     cryptographic_suites_supported:
-                      - RS256
-                      - RS512
-                      - ES256
-                      - ES512
+                    - RS256
+                    - RS512
+                    - ES256
+                    - ES512
                     display:
                       name: Swedish EHIC Provider Example
                       locale: en-US
-                    vct:
-                      EHICCredential
+                    vct: EHICCredential
                     credential_definition:
                       type:
-                        - EHICCredential
+                      - EHICCredential
                       credentialSubject:
                         family_name:
                           display:
-                            - locale: en-US
-                              name: Current Family Name
+                          - locale: en-US
+                            name: Current Family Name
                           mandatory: true
                         given_name:
                           display:
-                            - locale: en-US
-                              name: Current First Name
+                          - locale: en-US
+                            name: Current First Name
                           mandatory: true
                         birth_date:
                           display:
-                            - locale: en-US
-                              name: Birth Date
+                          - locale: en-US
+                            name: Birth date
+                  PersonIdentificationData:
+                    format: vc+sd-jwt
+                    id: eudiw.ehic.se
+                    cryptographic_binding_methods_supported:
+                    - jwk
+                    cryptographic_suites_supported:
+                    - RS256
+                    - RS512
+                    - ES256
+                    - ES512
+                    display:
+                      name: PersonIdentificationData
+                      locale: en-US
+                    vct: PersonIdentificationData
+                    credential_definition:
+                      type:
+                      - PersonIdentificationData
+                      credentialSubject:
+                        family_name:
+                          display:
+                          - locale: en-US
+                            name: Current Family Name
                           mandatory: true
+                        given_name:
+                          display:
+                          - locale: en-US
+                            name: Current First Name
+                          mandatory: true
+                        birth_date:
+                          display:
+                          - locale: en-US
+                            name: Birth date
               keys:
                 key_defs:
                 - type: RSA
@@ -374,7 +404,7 @@ config:
                   crv: P-256
                   use:
                   - sig
-                private_path: private/oci_jwks.json
+                private_path: private/oa_jwks.json
                 read_only: false
               endpoint:
                 credential:
@@ -397,9 +427,10 @@ config:
                         kwargs:
                           url: %APIGW_URL%/api/v1/credential
                           jwks_url: %APIGW_URL%/api/v1/credential/.well-known/jwks
-                        body:
-                              credential_type: sdjwt
-                              document_type: PDA1
+                      PersonIdentificationData:
+                        class: openid4v.openid_credential_issuer.credential_constructor.pid.PIDConstructor
+                        kwargs:
+                          url: http://vc-interop-2.sunet.se/api/v1/credential
               template_dir: template
               session_management: false
 
