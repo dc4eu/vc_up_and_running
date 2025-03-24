@@ -104,7 +104,7 @@ services:
       - "COLLECTOR_OTLP_ENABLED=true"
 
   satosa:
-    image: "${DOCKERHUB_FQDN}/euwallet-satosa:branch-stable"
+    image: "${DOCKERHUB_FQDN}/euwallet-satosa:branch-stable-2"
     container_name: satosa-issuer
     restart: always
     depends_on:
