@@ -36,4 +36,78 @@ attributes:
     - schacDateOfBirth
     openid:
     - birth_date
-
+  family_name_birth:
+    saml:
+    - BirthFamilyName
+    openid:
+    - family_name_birth
+  given_name_birth:
+    saml:
+    - BirthGivenName
+    openid:
+    - given_name_birth
+  birth_place:
+    saml:
+    - PlaceOfBirth
+    openid:
+    - birth_place
+  gender:
+    saml:
+    - Gender
+    openid:
+    - gender
+  birth_country:
+    saml:
+    - CountryOfBirth
+    openid:
+    - birth_country
+  birth_state:
+    saml:
+    - StateOfBirth
+    openid:
+    - birth_state
+  birth_city:
+    saml:
+    - TownOfBirth
+    openid:
+    - birth_city
+  resident_address:
+    saml:
+    - CurrentAddress
+    openid:
+    - resident_address
+  resident_country:
+    saml:
+    - CountryOfResidence
+    openid:
+    - resident_country
+  resident_state:
+    saml:
+    - StateOfResidence
+    openid:
+    - resident_state
+  resident_city:
+    saml:
+    - CityOfResidence
+    openid:
+    - resident_city
+  resident_postal_code:
+    saml:
+    - PostalCodeOfResidence
+    openid:
+    - resident_postal_code
+  resident_street:
+    saml:
+    - StreetOfResidence
+    openid:
+    - resident_street
+  resident_house_number:
+    saml:
+    - HouseNumerOfResidence
+    openid:
+    - resident_house_number
+  nationality:
+    saml:
+    - schacCountryOfCitizenship
+    openid:
+    - nationality

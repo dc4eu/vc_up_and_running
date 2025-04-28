@@ -36,6 +36,7 @@ config:
         want_assertions_or_response_signed: true
         force_authn: true
     xmlsec_binary: "/usr/bin/xmlsec1"
+    attribute_map_dir: /etc/satosa/attributemaps
   disco_srv: %SAML_DS_URL%
   attribute_profile: saml
 module: satosa.backends.saml2.SAMLBackend
