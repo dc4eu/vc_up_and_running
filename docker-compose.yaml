@@ -32,6 +32,7 @@ services:
     volumes:
       - ./config.yaml:/config.yaml:ro
       - /var/log/sunet:/var/log/sunet
+      - ${PWD}/metadata/:/metadata/:ro
       - ${PWD}/private_ec256.pem:/private_ec256.pem:ro
     environment:
       - "VC_CONFIG_YAML=config.yaml"
