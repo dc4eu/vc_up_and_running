@@ -1,0 +1,26 @@
+{
+  "vct": "ELMCredential",
+  "name": "ELM Credential",
+  "description": "European Learning Model (ELM) Credential.",
+  "$comment": "",
+  "display": [
+    {
+      "lang": "en-US",
+      "name": "ELM Credential",
+      "description": "Portable European Learning Model (ELM) Credential.",
+      "rendering": {
+        "svg_templates": [
+          {
+            "uri": "https://raw.githubusercontent.com/dc4eu/vc/633940b0b00ab259af01cfbff958f1ffebf5176a/images/diplomaTemplate.svg",
+            "uri#integrity": "sha256-1acd4883826aba0318d219213bb75a9dfc858f926e93f576224412301fe3018a",
+            "properties": {
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "claims": [],
+  "schema_uri": "",
+  "schema_uri#integrity": ""
+}
