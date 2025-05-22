@@ -36,16 +36,18 @@ services:
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
-  verifier:
-    container_name: "vc_verifier"
-    image: "${DOCKERHUB_FQDN}/dc4eu/verifier:${TAG}"
-    restart: always
-    volumes:
-      - ${PWD}/config.yaml:/config.yaml:ro
-    depends_on:
-      - mongo
-    environment:
-      - "VC_CONFIG_YAML=config.yaml"
+  #verifier:
+  #  container_name: "vc_verifier"
+  #  image: "${DOCKERHUB_FQDN}/dc4eu/verifier:${TAG}"
+  #  restart: always
+  #  volumes:
+  #    - ${PWD}/config.yaml:/config.yaml:ro
+  #    - /etc/dehydrated/private/<%= @hostname %>.key:/private_verifier_rsa.pem:ro
+  #    - /etc/dehydrated/private/<%= @hostname %>.pem:/verifier_x509_cert.pem:ro
+  #  depends_on:
+  #    - mongo
+  #  environment:
+  #    - "VC_CONFIG_YAML=config.yaml"
 
   registry:
     container_name: "vc_registry"
@@ -84,7 +86,7 @@ services:
       - "VC_CONFIG_YAML=config.yaml"
 
   mongo:
-    image: mongo:4.0.10
+    image: mongo:7.0
     container_name: "vc_mongo"
     restart: always
     expose:

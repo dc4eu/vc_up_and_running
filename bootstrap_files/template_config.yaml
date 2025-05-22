@@ -91,7 +91,7 @@ issuer:
     addr: :8080
   grpc_server:
     addr: vc_issuer:8090
-  signing_key_path: "/private_ec256.pem
+  signing_key_path: "/private_ec256.pem"
   issuer_url: https://issuer.example.com:8000
   wallet_url: https://dc4eu.wwwallet.org/cb
   jwt_attribute:
@@ -100,14 +100,6 @@ issuer:
     valid_duration: 3600
     verifiable_credential_type: "https://credential.sunet.se/identity_credential"
   
-verifier:
-  api_server:
-    addr: :8080
-    external_port: :8080
-  grpc_server:
-    addr: vc_verifier:8090
-  fqdn: "172.16.50.6"
-
 registry:
   api_server:
     addr: :8080
@@ -129,22 +121,6 @@ apigw:
     type: "openid_federation"
     trust_anchors:
       - "https://example.com/trust_anchor.pem"
-  oauth_server:
-    metadata:
-      path: /metadata/oauth2_metadata.json
-      signing_key_path: "/pki/apigw.key"
-      signing_chain_path: "/pki/apigw.crt"
-    clients:
-      "1003":
-        type: "confidential"
-        redirect_uri: "https://dev.wallet.sunet.se"
-        scopes:
-          - "pid:sd_jwt_vc"
-          - "diploma"
-  issuer_metadata:
-    path: "/metadata/issuer_metadata.json"
-    signing_key_path: "/pki/apigw.key"
-    signing_chain_path: "/pki/apigw.crt"
 
 mock_as:
   api_server:
