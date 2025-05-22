@@ -142,8 +142,6 @@ ui:
       base_url: http://vc_apigw:8080
     mockas:
       base_url: http://vc_mockas:8080
-    verifier:
-      base_url: http://vc_dev_verifier:8080
 
 portal:
   api_server:
