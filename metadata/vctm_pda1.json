@@ -1,0 +1,306 @@
+{
+  "vct": "urn:eudi:pda1:1",
+  "name": "DC4EU PDA1 SD-JWT VCTM",
+  "description": "DC4EU Portable Document A1 (PDA1) SD-JWT Verifiable Credential Type Metadata, based on ietf-oauth-sd-jwt-vc (draft 09), using a single language tag (en-US).",
+  "$comment": "Implementation of the DC4EU VCTM may require Member State-specific clarifications to align with national policies governing the display of included claims.",
+  "display": [
+    {
+      "lang": "en-US",
+      "name": "PDA1 SD-JWT VC",
+      "description": "Portable Document A1 (PDA1) SD-JWT VC.",
+      "rendering": {
+        "svg_templates": [
+          {
+            "uri": "https://demo-issuer.wwwallet.org/public/creds/pda1/portable-document-a1-svg-dc4eu-01.svg",
+            "uri#integrity": "sha256-Gkrm6M7doRcaQNTFUQJ8U2a+qqZTmNNo28yTAQN2tj4=",
+            "properties": {
+              "orientation": "landscape",
+              "color_scheme": "light",
+              "contrast": "normal"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "claims": [
+    {
+      "path": [
+        "personal_administrative_number"
+      ],
+      "sd": "always",
+      "svg_id": "personal_administrative_number",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Personal ID",
+          "description": "Unique personal identifier used by social security services."
+        }
+      ]
+    },
+    {
+      "path": [
+        "employer"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Employer"
+        }
+      ]
+    },
+    {
+      "path": [
+        "employer",
+        "id"
+      ],
+      "sd": "never",
+      "svg_id": "employer_id",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Employer id",
+          "description": "Employer unique identifier in EU or Member State registries."
+        }
+      ]
+    },
+    {
+      "path": [
+        "employer",
+        "name"
+      ],
+      "sd": "never",
+      "svg_id": "employer_name",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Employer name",
+          "description": "Employer name in EU or Member State registries."
+        }
+      ]
+    },
+    {
+      "path": [
+        "work_address"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Work address"
+        }
+      ]
+    },
+    {
+      "path": [
+        "work_address",
+	"formatted"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Full workplace address",
+	  "description": "Full formatted address of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "street_address"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace street",
+          "description": "Street name of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "building_number"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace building number",
+          "description": "Street number or building of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "postal_code"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace ZIP",
+          "description": "Postal or ZIP code of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "locality"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace city",
+          "description": "Municipality, city, town, or village of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "region"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace state",
+          "description": "State, province, or regional division of the workplace."
+        }
+      ]
+    },
+    {
+      "path": [
+	"work_address",
+        "country"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Workplace country",
+          "description": "Country where the workplace is located."
+        }
+      ]
+    },
+    {
+      "path": [
+        "legislation_country"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Applicable legislation",
+          "description": "Country whose legislation applies during work abroad (posting)."
+        }
+      ]
+    },
+    {
+      "path": [
+        "issuing_authority"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Issuing authority"
+        }
+      ]
+    },
+    {
+      "path": [
+        "issuing_authority",
+        "id"
+      ],
+      "sd": "never",
+      "svg_id": "issuing_authority_id",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Issuing authority id",
+          "description": "PDA1 issuing authority unique identifier in EU or Member State registries."
+        }
+      ]
+    },
+    {
+      "path": [
+        "issuing_authority",
+        "name"
+      ],
+      "sd": "never",
+      "svg_id": "issuing_authority_name",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Issuing authority name",
+          "description": "PDA1 issuing authority name in EU or Member State registries."
+        }
+      ]
+    },
+    {
+      "path": [
+        "issuing_country"
+      ],
+      "sd": "never",
+      "svg_id": "issuing_country",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Issuing country",
+          "description": "PDA1 issuing country."
+        }
+      ]
+    },
+    {
+      "path": [
+        "date_of_expiry"
+      ],
+      "sd": "never",
+      "svg_id": "date_of_expiry",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Expiry date",
+          "description": "PDA1 expiration date."
+        }
+      ]
+    },
+    {
+      "path": [
+        "date_of_issuance"
+      ],
+      "sd": "never",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Issue date",
+          "description": "PDA1 validity start date."
+        }
+      ]
+    },
+    {
+      "path": [
+        "document_number"
+      ],
+      "sd": "always",
+      "svg_id": "document_number",
+      "display": [
+        {
+          "lang": "en-US",
+          "label": "Document number",
+          "description": "PDA1 unique document identifier."
+        }
+      ]
+    }
+  ],
+  "schema_uri": "https://demo-issuer.wwwallet.org/public/creds/pda1/portable-document-a1-schema-dc4eu-01.json",
+  "schema_uri#integrity": "sha256-pvezVEjU4aJ5oxXbDUOaJhqzgZkU8FVDs66LP6JukE8="
+}

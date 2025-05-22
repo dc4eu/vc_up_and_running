@@ -8,6 +8,8 @@ services:
     volumes:
       - ${PWD}/config.yaml:/config.yaml:ro
       - ${PWD}/log:/var/log/sunet
+      - ${PWD}/metadata/:/metadata/:ro
+      - ${PWD}/private_ec256.pem:/private_ec256.pem:ro
     expose:
       - 8080
     ports:
