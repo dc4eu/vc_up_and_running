@@ -82,7 +82,6 @@ services:
     depends_on:
       - apigw
       - mockas
-      - verifier
     environment:
       - "VC_CONFIG_YAML=config.yaml"
 
