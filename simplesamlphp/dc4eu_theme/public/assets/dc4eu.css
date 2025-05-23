@@ -1,0 +1,136 @@
+/* Variables */
+:root {
+    --color--yellow-light: #ffd230;
+    --color--blue: #003399;
+    --color--blue-dark: #002b62;
+    --color--blue-darker: #111827;
+    --color--gray-light: #f3f4f6;
+    --color--gray-dark: #1f2937;
+    --color--white: #ffffff;
+    --color--black: #374151;
+
+    --border-radius: .5rem;
+
+    --box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Global */
+body {
+    font-family: 'Cantarell';
+    background-color: var(--color--gray-light);
+}
+
+:is(h1,h2,h3,h4,h5,h6) {
+    line-height: 1em;
+}
+
+/* Header */
+#header {
+    background: var(--color--blue-dark);
+    color: var(--color--white);
+
+    & .dc4eu-logo {
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+
+        & > img {
+            width: 4rem;
+            height: auto;
+            object-fit: contain;
+        }
+    }
+}
+
+/* Message box */
+.message-box {
+    border-radius: var(--border-radius);
+    border-left: initial;
+
+    &.warning {
+        background-color: var(--color--yellow-light);
+        color: var(--color--black);
+    }
+}
+
+/* Login page */
+body#core\:loginuserpass #content > .wrap #portalmenu > #portalcontent {
+    margin: 0 auto;
+    width: min(100%, 28rem);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form */
+.login-form-start > .pure-form {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background-color: var(--color--white);
+    overflow: hidden;
+}
+
+.pure-form {
+    padding: 2rem;
+    width: min(100%, 400px);
+    
+
+    & .pure-control-group {
+        > :is(input, button) {
+            border-radius: var(--border-radius);
+        }
+        
+        > label {
+            display: block;
+            margin-bottom: .1em;
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+            opacity: .75;
+        }
+
+        > input {
+            width: 100%;
+        }
+        
+        &.login-form-submit > #submit_button {
+            background-color: var(--color--blue);
+            color: var(--color--white);
+        }
+    }
+}
+
+/* Footer */
+#footer {
+    background: var(--color--gray-dark);
+    color: var(--color--white);
+}
+
+/* Dark mode color overwrites */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--color--blue-darker);
+        
+        &, :is(h1,h2,h3,h4,h5,h6) {
+            color: var(--color--white);
+        }
+    }
+
+    .message-box {
+        background-color: var(--color--gray-dark);
+    }
+
+    .login-form-start > .pure-form {
+        background-color: var(--color--gray-dark);
+    }
+
+    .pure-button {
+        color: var(--color--black);
+    }
+
+    .pure-form-message {
+        color: var(--color--white);
+    }
+}
