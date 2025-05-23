@@ -1,6 +1,8 @@
 /* Variables */
 :root {
     --color--yellow-light: #ffd230;
+    --color--green-light: #9ae600;
+    --color--red-light: #ff6467;
     --color--blue: #003399;
     --color--blue-dark: #002b62;
     --color--blue-darker: #111827;
@@ -50,8 +52,18 @@ body {
     border-radius: var(--border-radius);
     border-left: initial;
 
+    &.success {
+        background-color: var(--color--green-light);
+        color: var(--color--black);
+    }
+
     &.warning {
         background-color: var(--color--yellow-light);
+        color: var(--color--black);
+    }
+
+    &.error {
+        background-color: var(--color--red-light);
         color: var(--color--black);
     }
 }
