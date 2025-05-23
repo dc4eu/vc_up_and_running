@@ -60,8 +60,6 @@ body {
 body#core\:loginuserpass #content > .wrap #portalmenu > #portalcontent {
     margin: 0 auto;
     width: min(100%, 28rem);
-    display: flex;
-    flex-direction: column;
 }
 
 /* Form */
