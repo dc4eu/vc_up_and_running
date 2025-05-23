@@ -98,6 +98,7 @@ $config = [
         'saml' => true,
         'entitycategories' => true,
         'statistics' => true,
+        'dc4eu_theme' => true,
     ],
 
     'session.duration' => 8 * (60 * 60), // 8 hours.
@@ -140,7 +141,7 @@ $config = [
     'language.cookie.lifetime' => (60 * 60 * 24 * 900),
     'language.cookie.samesite' => $httpUtils->canSetSameSiteNone() ? 'None' : null,
 
-    'theme.use' => 'default',
+    'theme.use' => 'dc4eu_theme:dc4eu',
     //    'theme.controller' => '\SimpleSAML\Module\swamid\FancyThemeController',
     'template.auto_reload' => false,
     'production' => false,
