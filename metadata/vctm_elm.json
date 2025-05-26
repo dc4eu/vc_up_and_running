@@ -1,5 +1,5 @@
 {
-  "vct": "ELMCredential",
+  "vct": "urn:edui:elm:1",
   "name": "ELM Credential",
   "description": "European Learning Model (ELM) Credential.",
   "$comment": "",

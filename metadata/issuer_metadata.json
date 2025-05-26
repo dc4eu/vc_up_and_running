@@ -8,9 +8,9 @@
     }
   ],
   "credential_configurations_supported": {
-    "DiplomaCredential": {
+    "urn:edui:diploma:1": {
       "scope": "diploma",
-      "vct": "DiplomaCredential",
+      "vct": "urn:edui:diploma:1",
       "format": "vc+sd-jwt",
       "display": [
         {
@@ -100,41 +100,9 @@
         }
       }
     },
-    "urn:credential:diploma": {
-      "scope": "diploma",
-      "vct": "urn:credential:diploma",
-      "format": "vc+sd-jwt",
-      "display": [
-        {
-          "name": "Bachelor Diploma - SD-JWT VC",
-          "background_image": {
-            "uri": "http://vc_dev_apigw:8080/images/background-image.png"
-          },
-          "logo": {
-            "uri": "http://vc_dev_apigw:8080/images/diploma-logo.png"
-          },
-          "background_color": "#b1d3ff",
-          "text_color": "#ffffff",
-          "locale": "en-US"
-        }
-      ],
-      "cryptographic_binding_methods_supported": [
-        "ES256"
-      ],
-      "credential_signing_alg_values_supported": [
-        "ES256"
-      ],
-      "proof_types_supported": {
-        "jwt": {
-          "proof_signing_alg_values_supported": [
-            "ES256"
-          ]
-        }
-      }
-    },
-    "urn:credential:ehic": {
+    "urn:eudi:ehic:1": {
       "scope": "ehic",
-      "vct": "urn:credential:ehic",
+      "vct": "urn:eudi:ehic:1",
       "format": "vc+sd-jwt",
       "display": [
         {
