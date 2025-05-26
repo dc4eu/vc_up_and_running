@@ -95,7 +95,7 @@ issuer:
   issuer_url: https://issuer.example.com:8000
   wallet_url: https://dc4eu.wwwallet.org/cb
   jwt_attribute:
-    issuer: https://issuer.example.com:8000
+    issuer: %ISSUER_URL%
     enable_not_before: true
     valid_duration: 3600
     verifiable_credential_type: "https://credential.sunet.se/identity_credential"
