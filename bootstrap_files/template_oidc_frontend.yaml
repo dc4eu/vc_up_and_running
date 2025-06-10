@@ -431,7 +431,7 @@ config:
                         class: openid4v.openid_credential_issuer.credential_constructor.pid.PIDConstructor
                         kwargs:
                           url: http://vc-interop-2.sunet.se/api/v1/credential
-                      "urn:edui:diploma:1":
+                      "urn:eudi:diploma:1":
                         class: openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
                         kwargs:
                           url: %APIGW_URL%/api/v1/credential
@@ -439,7 +439,7 @@ config:
                           body:
                             credential_type: sdjwt
                             document_type: Diploma
-                      "urn:edui:micro_credential:1":
+                      "urn:eudi:micro_credential:1":
                         class: openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
                         kwargs:
                           url: %APIGW_URL%/api/v1/credential
@@ -447,7 +447,7 @@ config:
                           body:
                             credential_type: sdjwt
                             document_type: MicroCredential
-                      "urn:edui:elm:1":
+                      "urn:eudi:elm:1":
                         class: openid4v.openid_credential_issuer.credential_constructor.authentic_source.CredentialConstructor
                         kwargs:
                           url: %APIGW_URL%/api/v1/credential
